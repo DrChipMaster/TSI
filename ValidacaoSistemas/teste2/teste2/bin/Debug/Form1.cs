@@ -32,7 +32,7 @@ namespace teste2
             InitializeComponent();
             try
             {   // Open the text file using a stream reader.
-                using (StreamReader sr = new StreamReader("Form1.cs"))
+                using (StreamReader sr = new StreamReader("process_commands.c"))
                 {
                     int linesnumber = 0;
                     bool existTabs = false;
@@ -44,7 +44,7 @@ namespace teste2
                     for (int j = 0; j < linesnumber; j++)
                     {
                         richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Regular);
-                        richTextBox1.AppendText(j + ":    ");
+                        richTextBox1.AppendText(j + ":   ");
                         int counter = 0;
                         Color color = Color.Red;
                         bool error = false;
