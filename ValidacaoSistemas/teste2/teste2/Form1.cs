@@ -52,7 +52,8 @@ namespace teste2
                             if (spacecount != (block*4))
                                 {
                               
-                                    textBox2.AppendText( "line: "+ j +" com :"+spacecount+" espaços\r\n");
+                                if(spacecount!=0)
+                                    textBox2.AppendText( "line: "+ j +" com :"+spacecount+" espaços Suposto:"+ block*4+"\r\n");
                                     errorSpace = true;
 
                                 }
