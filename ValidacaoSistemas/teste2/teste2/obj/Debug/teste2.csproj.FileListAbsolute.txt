@@ -17,4 +17,4 @@ C:\Users\Andre\Desktop\TSI\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.
 C:\Users\Andre\Desktop\TSI\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.csproj.CoreCompileInputs.cache
 C:\Users\Andre\Desktop\TSI\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.exe
 C:\Users\Andre\Desktop\TSI\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.pdb
-C:\Users\Andre\Desktop\TSI\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.RichTextBoxExtensions.resources
+C:\Users\Andre\Desktop\TSI\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.Form1.resources

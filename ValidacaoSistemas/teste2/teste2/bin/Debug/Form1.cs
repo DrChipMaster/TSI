@@ -11,28 +11,21 @@ using System.Windows.Forms;
 
 namespace teste2
 {
-    public static class RichTextBoxExtensions
-    {
-        public static void AppendText(this RichTextBox box, string text, Color color)
-        {
-            box.SelectionStart = box.TextLength;
-            box.SelectionLength = 0;
-
-            box.SelectionColor = color;
-            box.AppendText(text);
-            box.SelectionColor = box.ForeColor;
-        }
-    }
+   
     public partial class Form1 : Form
     {
+  
         string[] lines;
+        
         public Form1()
         {
             lines = new string[1000];
+            int spacecount = 0;
+            int lastspacecount = 0;
             InitializeComponent();
             try
             {   // Open the text file using a stream reader.
-                using (StreamReader sr = new StreamReader("process_commands.c"))
+                using (StreamReader sr = new StreamReader("Form1.cs"))
                 {
                     int linesnumber = 0;
                     bool existTabs = false;
@@ -44,7 +37,7 @@ namespace teste2
                     for (int j = 0; j < linesnumber; j++)
                     {
                         richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Regular);
-                        richTextBox1.AppendText(j + ":   ");
+                        richTextBox1.AppendText(j + ":    ");
                         int counter = 0;
                         Color color = Color.Red;
                         bool error = false;
@@ -177,9 +170,42 @@ namespace teste2
 
         }
 
+        private int checkspaces(int line)
+        {
+
+            int  spacecount = 0;
+            bool loop= true;
+            int counter=0;
+            while(loop)
+            {
+                if (lines[line].ToCharArray()[counter] == ' ')
+                {
+                    spacecount++;
+                }
+                else loop = false;
+                counter++;
+
+            }
+            return spacecount;
+            
+        }
+
+       
+
     }
 
 
 
+    public static class RichTextBoxExtensions
+    {
+        public static void AppendText(this RichTextBox box, string text, Color color)
+        {
+            box.SelectionStart = box.TextLength;
+            box.SelectionLength = 0;
 
+            box.SelectionColor = color;
+            box.AppendText(text);
+            box.SelectionColor = box.ForeColor;
+        }
+    }
 }
