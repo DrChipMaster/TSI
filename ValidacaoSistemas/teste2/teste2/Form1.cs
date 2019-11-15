@@ -19,7 +19,7 @@ namespace teste2
         
         public Form1()
         {
-            lines = new string[1000];
+           lines = new string[1000];
             int spacecount = 0;
             int lastspacecount = 0;
             InitializeComponent();
@@ -34,16 +34,36 @@ namespace teste2
                         lines[linesnumber] = sr.ReadLine();
                         linesnumber++;
                     }
+                    int block = 0;
                     for (int j = 0; j < linesnumber; j++)
                     {
                         richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Regular);
                         richTextBox1.AppendText(j + ":    ");
                         int counter = 0;
                         Color color = Color.Red;
-                        bool error = false;
+                        bool error = false, errorSpace= false;
                         // check for things section
                         if (checkTabsNumber(j) > 0) existTabs = true;
+                        spacecount = checkspaces(j);
 
+                        if(j>0)
+                        {
+                           
+                            if (spacecount != (block*4))
+                                {
+                              
+                                    textBox2.AppendText( "line: "+ j +" com :"+spacecount+" espaços\r\n");
+                                    errorSpace = true;
+
+                                }
+                            if(lines[j].Contains('{'))
+                            {
+                                block++;
+                            }
+                            if (lines[j].Contains('}')) block--;
+
+                          
+                        }
 
 
                         // check for charactes section
@@ -62,6 +82,18 @@ namespace teste2
                                     
                                 }
                             }
+                            if (errorSpace && counter != 0 && c!=' ')
+                            {
+                               
+                                errorSpace = false;
+                            }
+
+                            if ((errorSpace && c==' ') || (errorSpace && counter ==0))
+                                {
+                                error = true;
+                                color = Color.Green;
+                            }
+                             
 
 
 
@@ -72,8 +104,7 @@ namespace teste2
                                 
                                 richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Underline);
                                 richTextBox1.AppendText(c.ToString(), color);
-                                richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Regular);
-                                richTextBox1.AppendText(" ");
+                                
                                 error = false;
                                 color = Color.Black;
 
@@ -84,9 +115,13 @@ namespace teste2
                                 richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Regular);
                                 richTextBox1.AppendText(lines[j].ToCharArray()[counter].ToString());
                             }
+                            //if (haveerror)
+                            //    errorSpace = true;
 
                             counter++;
+                            
                         }
+                        existTabs = false;
                         richTextBox1.AppendText("\r\n");
                        // checkTabs(j);
 
@@ -178,17 +213,23 @@ namespace teste2
             int counter=0;
             while(loop)
             {
-                if (lines[line].ToCharArray()[counter] == ' ')
+                if (counter < lines[line].Length)
                 {
-                    spacecount++;
+                    if (lines[line].ToCharArray()[counter] == ' ' && counter < lines[line].Length)
+                    {
+                        spacecount++;
+                    }
+                    else loop = false;
                 }
                 else loop = false;
                 counter++;
+
 
             }
             return spacecount;
             
         }
+
 
        
 
