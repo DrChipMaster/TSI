@@ -9,44 +9,45 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.drchip.ihelp.R;
 
 public class SlideshowFragment extends Fragment {
-
     private SlideshowViewModel slideshowViewModel;
-    Button btnUserInfo;
+    Button btnLikedPublications;
     Button btnUserPublications;
+    RecyclerView rvUserPublications;
+    RecyclerView rvLikedPublications;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        slideshowViewModel = ViewModelProviders.of(this).get(SlideshowViewModel.class);
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        btnUserInfo = root.findViewById(R.id.button3);
-        btnUserInfo.setOnClickListener(new View.OnClickListener() {
+
+        rvUserPublications = root.findViewById(R.id.rvUserPublications);
+        rvLikedPublications = root.findViewById(R.id.rvLikedPublications);
+        btnUserPublications = root.findViewById(R.id.button2);
+        btnLikedPublications = root.findViewById(R.id.button3);
+
+        btnLikedPublications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnUserInfo.setBackgroundResource(R.drawable.user_profile_on_left);
-                btnUserInfo.setBackgroundResource(R.drawable.user_profile_off_right);
-
-
-                /*    CONTINUAR: MOSTRAR CONTAINER INFO    */
+                btnLikedPublications.setBackgroundResource(R.drawable.user_profile_on_left);
+                btnLikedPublications.setBackgroundResource(R.drawable.user_profile_off_right);
+                rvUserPublications.setVisibility(View.GONE);
+                rvLikedPublications.setVisibility(View.VISIBLE);
             }
         });
 
-
-        btnUserPublications = root.findViewById(R.id.button2);
         btnUserPublications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnUserPublications.setBackgroundResource(R.drawable.user_profile_on_right);
                 btnUserPublications.setBackgroundResource(R.drawable.user_profile_off_left);
-
-                /*    CONTINUAR: MOSTRAR CONTAINER INFO    */
+                rvUserPublications.setVisibility(View.VISIBLE);
+                rvLikedPublications.setVisibility(View.GONE);
             }
         });
-
 
         return root;
     }
