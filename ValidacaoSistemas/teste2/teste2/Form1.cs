@@ -16,17 +16,19 @@ namespace teste2
     {
   
         string[] lines;
+        string path;
         
-        public Form1()
-        {
-           lines = new string[1000];
+        public Form1(string path)
+            {
+            this.path = path;
+            this.lines = new string[1000];
             int spacecount = 0;
             int lastspacecount = 0;
             InitializeComponent();
             try
             {   // Open the text file using a stream reader.
                 //using (StreamReader sr = new StreamReader("Form1.cs"))
-                using (StreamReader sr = new StreamReader("main.c"))
+                using (StreamReader sr = new StreamReader(path.ToString()))
                 {
                     int linesnumber = 0;
                     bool existTabs = false;
@@ -42,14 +44,14 @@ namespace teste2
                         richTextBox1.AppendText(j + ":    ");
                         int counter = 0;
                         Color color = Color.Red;
-                        bool error = false, errorSpace= false;
+                        bool error = false, errorSpace= false , errorComment = false , errorBrackets = false;
                         // check for things section
                         if (checkTabsNumber(j) > 0) existTabs = true;
                         spacecount = checkspaces(j);
 
                         if(j>0)
                         {
-                           
+                           if (lines[j].Contains('}')) block--;
                             if (spacecount != (block*4))
                                 {
                               
@@ -62,10 +64,12 @@ namespace teste2
                             {
                                 block++;
                             }
-                            if (lines[j].Contains('}')) block--;
+                            
 
                           
                         }
+
+                        errorBrackets = checkBraces(j);
 
 
                         // check for charactes section
@@ -97,6 +101,13 @@ namespace teste2
                             }
                             int aux1 = counter + 1;
                             char nextc;
+                            if(errorComment)
+                            {
+                                errorComment = false;
+                                error = true;
+                                color = Color.Brown;
+
+                            }
                             if (aux1 < lines[j].ToCharArray().Length)
                             {
                                 nextc= lines[j].ToCharArray()[aux1];
@@ -104,9 +115,22 @@ namespace teste2
                                 {
                                     error = true;
                                     color = Color.Blue;
+                                }
 
+                               if ( checkComments(c, nextc) )
+                                {
+                                    error = true;
+                                    color = Color.Brown;
+                                    errorComment = true;  
                                 }
                             }
+                          if(errorBrackets && ( c == '{' || c =='}' ))
+                                {
+                                error = true;
+                                color = Color.Yellow;
+                            }
+                            //chamar aqui!!
+
 
                           
                              
@@ -118,7 +142,7 @@ namespace teste2
                             if (error)
                             {
                                 
-                                richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Underline);
+                                richTextBox1.SelectionFont = new Font("Times New Roman", 20, FontStyle.Underline);
                                 richTextBox1.AppendText(c.ToString(), color);
                                 
                                 error = false;
@@ -223,7 +247,6 @@ namespace teste2
 
         private int checkspaces(int line)
         {
-
             int  spacecount = 0;
             bool loop= true;
             int counter=0;
@@ -245,9 +268,24 @@ namespace teste2
             return spacecount;
             
         }
+        private bool checkComments(char char1, char char2)
+        {      
+            return (char1 == '/' && char2 == '/');
+        }
 
-
-       
+        private bool checkBraces(int line)
+        {
+            int counterChar = 1;
+            if (lines[line].Contains("{") || lines[line].Contains("}")) 
+            while(counterChar < lines[line].Length-1 )
+            {
+                    if (lines[line].ToCharArray()[counterChar] != ' ' && lines[line].ToCharArray()[counterChar] != (char)9)
+                        if (lines[line].ToCharArray()[counterChar] != '}' && lines[line].ToCharArray()[counterChar] != '}')
+                            return true;
+                    counterChar++;
+            }
+            return false;
+        }
 
     }
 

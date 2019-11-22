@@ -18,9 +18,25 @@ namespace teste2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            string files = "main.c";
+            using (var fbd = new OpenFileDialog())
+            {
+                OpenFileDialog choofdlog = new OpenFileDialog();
+                choofdlog.Filter = "All Files (*.*)|*.*";
+                choofdlog.FilterIndex = 1;
+                choofdlog.Multiselect = false;
 
-     
+                if (choofdlog.ShowDialog() == DialogResult.OK)
+                {
+                    string sFileName = choofdlog.FileName;
+                    //string[] arrAllFiles = choofdlog.FileNames; //used when Multiselect = true   
+                    files = sFileName;
+                }
+                Application.Run(new Form1(files));
+
+
+            }
         }
     }
 }
+
