@@ -25,7 +25,8 @@ namespace teste2
             InitializeComponent();
             try
             {   // Open the text file using a stream reader.
-                using (StreamReader sr = new StreamReader("Form1.cs"))
+                //using (StreamReader sr = new StreamReader("Form1.cs"))
+                using (StreamReader sr = new StreamReader("main.c"))
                 {
                     int linesnumber = 0;
                     bool existTabs = false;
@@ -94,6 +95,20 @@ namespace teste2
                                 error = true;
                                 color = Color.Green;
                             }
+                            int aux1 = counter + 1;
+                            char nextc;
+                            if (aux1 < lines[j].ToCharArray().Length)
+                            {
+                                nextc= lines[j].ToCharArray()[aux1];
+                                if (c == ',' && nextc != ' ')
+                                {
+                                    error = true;
+                                    color = Color.Blue;
+
+                                }
+                            }
+
+                          
                              
 
 
