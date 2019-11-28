@@ -6,10 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -50,6 +54,30 @@ public class Register extends AppCompatActivity {
                     if (etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
                         String email = etEmail.getText().toString().trim();
                         String password = etPassword.getText().toString().trim();
+                        progressDialog.setTitle("Sign in");
+                        progressDialog.setMessage("Connecting with server...");
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+                        progressDialog.show();
+
+                        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                if (task.isSuccessful()) {
+
+                                    ApplicationClass.currentUser = mAuth.getCurrentUser();
+                                    Register.this.finish();
+
+
+                                } else {
+
+                                    Snackbar.make(findViewById(R.id.activity_register), "Please enter all fields", Snackbar.LENGTH_LONG).setAction("Error", null).show();
+
+                                }
+
+                            }
+                        });
 
                     }
                 }

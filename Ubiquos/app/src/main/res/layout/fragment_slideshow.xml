@@ -60,7 +60,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/btnLiked"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -68,10 +68,11 @@
                     android:layout_weight="1"
                     android:background="@drawable/user_profile_off_left"
                     android:text="LIKED"
+                    android:textColor="#FFFFFF"
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btnPosts"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

@@ -26,14 +26,14 @@ public class SlideshowFragment extends Fragment {
 
         rvUserPublications = root.findViewById(R.id.rvUserPublications);
         rvLikedPublications = root.findViewById(R.id.rvLikedPublications);
-        btnUserPublications = root.findViewById(R.id.button2);
-        btnLikedPublications = root.findViewById(R.id.button3);
+        btnUserPublications = root.findViewById(R.id.btnPosts);
+        btnLikedPublications = root.findViewById(R.id.btnLiked);
 
         btnLikedPublications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnLikedPublications.setBackgroundResource(R.drawable.user_profile_on_left);
-                btnLikedPublications.setBackgroundResource(R.drawable.user_profile_off_right);
+                btnUserPublications.setBackgroundResource(R.drawable.user_profile_off_right);
                 rvUserPublications.setVisibility(View.GONE);
                 rvLikedPublications.setVisibility(View.VISIBLE);
             }
@@ -43,7 +43,7 @@ public class SlideshowFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 btnUserPublications.setBackgroundResource(R.drawable.user_profile_on_right);
-                btnUserPublications.setBackgroundResource(R.drawable.user_profile_off_left);
+                btnLikedPublications.setBackgroundResource(R.drawable.user_profile_off_left);
                 rvUserPublications.setVisibility(View.VISIBLE);
                 rvLikedPublications.setVisibility(View.GONE);
             }
