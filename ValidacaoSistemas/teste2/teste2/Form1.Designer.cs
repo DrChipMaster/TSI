@@ -30,11 +30,15 @@
         {
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(684, 27);
+            this.textBox2.Location = new System.Drawing.Point(719, 189);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -49,11 +53,10 @@
             this.richTextBox1.Size = new System.Drawing.Size(516, 624);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
-<<<<<<< Updated upstream
-=======
+
+          
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
             // 
             // checkBox1
             // 
@@ -103,17 +106,18 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Scan";
             this.button1.UseVisualStyleBackColor = false;
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::teste2.Properties.Resources.shattered_island;
             this.ClientSize = new System.Drawing.Size(1035, 662);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.textBox2);
             this.Name = "Form1";
@@ -127,6 +131,10 @@
 
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Button button1;
     }
 }
 
