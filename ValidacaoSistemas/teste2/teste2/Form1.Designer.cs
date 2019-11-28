@@ -53,8 +53,10 @@
             this.richTextBox1.Size = new System.Drawing.Size(516, 624);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
+
+          
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-<<<<<<< Updated upstream
+
             // 
             // checkBox1
             // 
@@ -104,8 +106,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Scan";
             this.button1.UseVisualStyleBackColor = false;
-=======
->>>>>>> Stashed changes
+
             // 
             // Form1
             // 

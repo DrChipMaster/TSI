@@ -298,7 +298,7 @@ namespace teste2
             return (char1 == '/' && char2 == '/');
         }
 
-<<<<<<< Updated upstream
+
         private bool checkBraces(int line)
         {
             int counterChar = 1;
@@ -323,22 +323,24 @@ namespace teste2
 
 
 
+
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
-<<<<<<< Updated upstream
+
 
         }
 
-=======
+
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
-=======
->>>>>>> Stashed changes
         }
+
+        
+
     }
->>>>>>> Stashed changes
+
 
 
     }
