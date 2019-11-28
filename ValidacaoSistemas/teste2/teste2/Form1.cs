@@ -231,9 +231,58 @@ namespace teste2
             
         }
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+        private bool checkBraces(int line)
+        {
+            int counterChar = 1;
+            if (lines[line].Contains("{") || lines[line].Contains("}"))
+                while (counterChar < lines[line].Length - 1)
+                {
+                    if (lines[line].ToCharArray()[counterChar] != ' ' && lines[line].ToCharArray()[counterChar] != (char)9)
+                        if (lines[line].ToCharArray()[counterChar] != '}' && lines[line].ToCharArray()[counterChar] != '}')
+                            return true;
+                    counterChar++;
+                }
+            return false;
+        }
+
+        /* Linha a linha e' verificado */
+        private void checkUnusedVariables()
+        {
+            /* also include enums, structs?? */
+            string[] varTypes = {
+                "sbyte", "short", "int", "long", "byte", "ushort",
+                "uint", "ulong", "char", "float", "double", "decimal", "bool"};
+
+>>>>>>> Stashed changes
 
        
 
+<<<<<<< Updated upstream
+=======
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+<<<<<<< Updated upstream
+
+        }
+
+=======
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+=======
+>>>>>>> Stashed changes
+=======
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+>>>>>>> Stashed changes
+        }
+>>>>>>> Stashed changes
     }
 
 
