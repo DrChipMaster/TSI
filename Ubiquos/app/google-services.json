@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "543245719833",
+    "firebase_url": "https://ihelp-tsi.firebaseio.com",
+    "project_id": "ihelp-tsi",
+    "storage_bucket": "ihelp-tsi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543245719833:android:ae7c476b41d4a2e6e28d88",
+        "android_client_info": {
+          "package_name": "com.drchip.ihelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543245719833-djgvh6bjo5i5e6aq151q8v294j36qct0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.drchip.ihelp",
+            "certificate_hash": "e462277443011e36ffac9bc59d56ef56b9074284"
+          }
+        },
+        {
+          "client_id": "543245719833-iq3m46mc8g5blo4k86pvn6ii1dpjekl0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfKkVJVIrRQ7WQeIcl740OezbbgY4WBas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543245719833-iq3m46mc8g5blo4k86pvn6ii1dpjekl0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
