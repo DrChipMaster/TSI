@@ -122,6 +122,13 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, Register.class));
+
+            }
+        });
 
         ApplicationClass.currentUser = mAuth.getCurrentUser();
         if (ApplicationClass.currentUser != null) {
