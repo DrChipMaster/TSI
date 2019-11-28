@@ -323,7 +323,10 @@ namespace teste2
 
 
 
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
 
+<<<<<<< Updated upstream
 
         }
 
@@ -331,6 +334,8 @@ namespace teste2
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
+=======
+>>>>>>> Stashed changes
         }
     }
 >>>>>>> Stashed changes
