@@ -5,6 +5,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#0ABB72</color>
     <color name="lateralBar">#131313</color>
+    <color name="colorHint">#9E9D9D</color>
     <color name="secondaryLightColor">#7bffff</color>
     <color name="secondaryDarkColor">#009baf</color>
     <color name="primaryTextColor">#FFFFFF</color>
