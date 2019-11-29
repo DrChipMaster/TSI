@@ -324,18 +324,7 @@ namespace teste2
 
 
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-
-
-        }
-
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+   
 
         
 
