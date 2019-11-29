@@ -17,26 +17,201 @@ namespace teste2
 
         string[] lines;
         string path;
-
+        private Report report;
     public Form1(string path)
         {
-            this.path = path;
-            this.lines = new string[1000];
-            int spacecount = 0;
-            int lastspacecount = 0;
+            report = new Report();
             InitializeComponent();
+            this.path = path;
             try
-            {   // Open the text file using a stream reader.
-                //using (StreamReader sr = new StreamReader("Form1.cs"))
+            {
+                this.lines = new string[1000];
+                int spacecount = 0;
+                int lastspacecount = 0;
                 using (StreamReader sr = new StreamReader(path.ToString()))
                 {
                     int linesnumber = 0;
                     bool existTabs = false;
+                    string text = "";
                     while (!sr.EndOfStream)
                     {
                         lines[linesnumber] = sr.ReadLine();
+                        richTextBox1.AppendText(linesnumber + ": ");
+                        richTextBox1.AppendText(lines[linesnumber]);
+                        richTextBox1.AppendText("\r\n");
+                       
+                        linesnumber++;
+
+                    }
+                }
+
+                }
+            catch (IOException a)
+            {
+                richTextBox1.Text = "The file could not be read:";
+                richTextBox1.AppendText(a.Message);
+            }
+
+        
+            
+
+
+}
+
+        private void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private Color checkTabs(char c)
+        {
+
+
+            if (c == (char)9)
+            {
+
+                return Color.Red;
+
+
+            }
+            else
+            {
+                return Color.Pink;
+
+            }
+
+
+
+            // checkBox1.AutoCheck = true;
+            // textBox2
+            //  string tabs = lines[i].Split()
+
+
+
+
+
+        }
+
+
+
+
+
+        private int checkTabsNumber(int i)
+        {
+            int tabNumber = 0;
+
+            if (lines[i].Contains((char)9))
+            {
+                int counter = 0;
+
+
+                while (counter < lines[i].Length)
+                {
+                    if (lines[i].ToCharArray()[counter] == (char)9)
+                    {
+                        tabNumber++;
+                    }
+                    counter++;
+                }
+
+                report.tabReport.AppendText("Contains " + tabNumber + " TABS in lines: " + i + "\r\n");
+
+            }
+            return tabNumber;
+
+
+        }
+
+        private int checkspaces(int line)
+        {
+            int spacecount = 0;
+            bool loop = true;
+            int counter = 0;
+            while (loop)
+            {
+                if (counter < lines[line].Length)
+                {
+                    if (lines[line].ToCharArray()[counter] == ' ' && counter < lines[line].Length)
+                    {
+                        spacecount++;
+                    }
+                    else loop = false;
+                }
+                else loop = false;
+                counter++;
+
+
+            }
+            return spacecount;
+
+        }
+        private bool checkComments(char char1, char char2)
+        {
+            return (char1 == '/' && char2 == '/');
+        }
+
+
+        private bool checkBraces(int line)
+        {
+            int counterChar = 1;
+            if (lines[line].Contains("{") || lines[line].Contains("}"))
+                while (counterChar < lines[line].Length - 1)
+                {
+                    if (lines[line].ToCharArray()[counterChar] != ' ' && lines[line].ToCharArray()[counterChar] != (char)9)
+                        if (lines[line].ToCharArray()[counterChar] != '}' && lines[line].ToCharArray()[counterChar] != '}')
+                            return true;
+                    counterChar++;
+                }
+            return false;
+        }
+
+        /* Linha a linha e' verificado */
+        private void checkUnusedVariables()
+        {
+            /* also include enums, structs?? */
+            string[] varTypes = {
+                "sbyte", "short", "int", "long", "byte", "ushort",
+                "uint", "ulong", "char", "float", "double", "decimal", "bool"};
+
+
+
+
+   
+
+        
+
+    }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            if (report.Visible)
+                report.Hide();
+            else report.Show();
+            report.tabReport.Text = "";
+            report.spaceCountReport.Text = "";
+            report.bracketUseReport.Text = "";
+            richTextBox1.Text = "";
+            report.bracketUseReport.Visible = false;
+
+           
+            this.lines = new string[1000];
+            int spacecount = 0;
+            int lastspacecount = 0;
+             // Open the text file using a stream reader.
+                
+                using (StreamReader sr = new StreamReader(path.ToString()))
+                {
+                    int linesnumber = 0;
+                    bool existTabs = false;
+                    string text = "";
+                    while (!sr.EndOfStream)
+                    {
+                        lines[linesnumber] = sr.ReadLine();
+                        text += lines[linesnumber];
+
                         linesnumber++;
                     }
+
                     int block = 0;
                     for (int j = 0; j < linesnumber; j++)
                     {
@@ -44,8 +219,8 @@ namespace teste2
                         richTextBox1.AppendText(j + ":    ");
                         int counter = 0;
                         Color color = Color.Red;
-                        bool error = false, errorSpace = false, errorComment = false, errorBrackets = false, errorDefine=false;
-                        int lenghDefine=0;
+                        bool error = false, errorSpace = false, errorComment = false, errorBrackets = false, errorDefine = false;
+                        int lenghDefine = 0;
                         // check for things section
                         if (checkTabsNumber(j) > 0) existTabs = true;
                         spacecount = checkspaces(j);
@@ -57,7 +232,7 @@ namespace teste2
                             {
 
                                 if (spacecount != 0)
-                                    textBox2.AppendText("line: " + j + " com :" + spacecount + " espaços Suposto:" + block * 4 + "\r\n");
+                                    report.spaceCountReport.AppendText("line: " + j + " com :" + spacecount + " espaços Suposto:" + block * 4 + "\r\n");
                                 errorSpace = true;
 
                             }
@@ -65,13 +240,14 @@ namespace teste2
                             {
                                 block++;
                             }
-                            
-                            if (lines[j].Contains("#define ")) {
+
+                            if (lines[j].Contains("#define "))
+                            {
                                 string[] splited = lines[j].Split(' ');
                                 lenghDefine = splited[1].Length;
-                                for (int k=0; k < splited[1].Length; k++ )
+                                for (int k = 0; k < splited[1].Length; k++)
                                 {
-                                    if (((int)splited[1].ToCharArray()[k] > 96)  && ((int)splited[1].ToCharArray()[k] < 123))
+                                    if (((int)splited[1].ToCharArray()[k] > 96) && ((int)splited[1].ToCharArray()[k] < 123))
                                     {
                                         errorDefine = true;
                                         break;
@@ -143,11 +319,11 @@ namespace teste2
                                 color = Color.Yellow;
                             }
 
-                            if(errorDefine && counter >7 && counter < lenghDefine+8)
+                            if (errorDefine && counter > 7 && counter < lenghDefine + 8)
                             {
                                 error = true;
                                 color = Color.Purple;
-                                  
+
                             }
                             //chamar aqui!!
 
@@ -195,143 +371,10 @@ namespace teste2
 
 
                 }
-            }
-            catch (IOException a)
-            {
-                richTextBox1.Text = "The file could not be read:";
-                richTextBox1.AppendText(a.Message);
-            }
-
+          
 
 
         }
-
-        private void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private Color checkTabs(char c)
-        {
-
-
-            if (c == (char)9)
-            {
-
-                return Color.Red;
-
-
-            }
-            else
-            {
-                return Color.Pink;
-
-            }
-
-
-
-            // checkBox1.AutoCheck = true;
-            // textBox2
-            //  string tabs = lines[i].Split()
-
-
-
-
-
-        }
-
-
-
-
-
-        private int checkTabsNumber(int i)
-        {
-            int tabNumber = 0;
-
-            if (lines[i].Contains((char)9))
-            {
-                int counter = 0;
-
-
-                while (counter < lines[i].Length)
-                {
-                    if (lines[i].ToCharArray()[counter] == (char)9)
-                    {
-                        tabNumber++;
-                    }
-                    counter++;
-                }
-
-                textBox2.AppendText("Contains " + tabNumber + " TABS in lines: " + i + "\r\n");
-
-            }
-            return tabNumber;
-
-
-        }
-
-        private int checkspaces(int line)
-        {
-            int spacecount = 0;
-            bool loop = true;
-            int counter = 0;
-            while (loop)
-            {
-                if (counter < lines[line].Length)
-                {
-                    if (lines[line].ToCharArray()[counter] == ' ' && counter < lines[line].Length)
-                    {
-                        spacecount++;
-                    }
-                    else loop = false;
-                }
-                else loop = false;
-                counter++;
-
-
-            }
-            return spacecount;
-
-        }
-        private bool checkComments(char char1, char char2)
-        {
-            return (char1 == '/' && char2 == '/');
-        }
-
-
-        private bool checkBraces(int line)
-        {
-            int counterChar = 1;
-            if (lines[line].Contains("{") || lines[line].Contains("}"))
-                while (counterChar < lines[line].Length - 1)
-                {
-                    if (lines[line].ToCharArray()[counterChar] != ' ' && lines[line].ToCharArray()[counterChar] != (char)9)
-                        if (lines[line].ToCharArray()[counterChar] != '}' && lines[line].ToCharArray()[counterChar] != '}')
-                            return true;
-                    counterChar++;
-                }
-            return false;
-        }
-
-        /* Linha a linha e' verificado */
-        private void checkUnusedVariables()
-        {
-            /* also include enums, structs?? */
-            string[] varTypes = {
-                "sbyte", "short", "int", "long", "byte", "ushort",
-                "uint", "ulong", "char", "float", "double", "decimal", "bool"};
-
-
-
-
-   
-
-        
-
-    }
-
-
-
     }
 
 
