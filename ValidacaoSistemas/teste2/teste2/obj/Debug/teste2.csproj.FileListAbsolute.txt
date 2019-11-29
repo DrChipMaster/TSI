@@ -19,3 +19,13 @@ C:\Users\Andre\Desktop\TSI\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.
 C:\Users\Andre\Desktop\TSI\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.pdb
 C:\Users\Andre\Desktop\TSI\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.Form1.resources
 C:\Users\Andre\Desktop\TSI\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.Report.resources
+D:\GitHub\TSI\ValidacaoSistemas\teste2\teste2\bin\Debug\teste2.exe.config
+D:\GitHub\TSI\ValidacaoSistemas\teste2\teste2\bin\Debug\teste2.exe
+D:\GitHub\TSI\ValidacaoSistemas\teste2\teste2\bin\Debug\teste2.pdb
+D:\GitHub\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.csprojAssemblyReference.cache
+D:\GitHub\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.Form1.resources
+D:\GitHub\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.Properties.Resources.resources
+D:\GitHub\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.Report.resources
+D:\GitHub\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.csproj.GenerateResource.cache
+D:\GitHub\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.exe
+D:\GitHub\TSI\ValidacaoSistemas\teste2\teste2\obj\Debug\teste2.pdb
