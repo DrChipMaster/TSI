@@ -38,7 +38,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(719, 189);
+            this.textBox2.Location = new System.Drawing.Point(730, 355);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -53,10 +53,6 @@
             this.richTextBox1.Size = new System.Drawing.Size(516, 624);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
-
-          
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-
             // 
             // checkBox1
             // 
@@ -106,7 +102,6 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Scan";
             this.button1.UseVisualStyleBackColor = false;
-
             // 
             // Form1
             // 
