@@ -97,6 +97,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="iClean.ico" />
+    <None Include="Resources\logo6.jpg" />
+    <None Include="Resources\logo5.jpg" />
+    <None Include="Resources\logo_4.jpg" />
+    <None Include="Resources\logo_41.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
