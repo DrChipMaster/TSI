@@ -1,6 +1,5 @@
 package com.drchip.ihelp;
 
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -202,10 +201,10 @@ public class Login extends AppCompatActivity {
                                 final InputStream imageStream;
                                 imageStream = getContentResolver().openInputStream(imageUri);
                                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                                mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User("", ApplicationClass.currentUser.getEmail(), selectedImage));
+                                mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User("", ApplicationClass.currentUser.getEmail()));
 
                             } catch (FileNotFoundException e) {
-                                mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User(ApplicationClass.currentUser.getDisplayName(), ApplicationClass.currentUser.getEmail(), null));
+                                mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User(ApplicationClass.currentUser.getDisplayName(), ApplicationClass.currentUser.getEmail()));
 
                                 Toast.makeText(Login.this, "Error Login", Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();

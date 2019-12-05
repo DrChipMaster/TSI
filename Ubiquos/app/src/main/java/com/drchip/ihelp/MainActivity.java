@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,14 +28,22 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
     public static final int PICK_IMAGE = 1;
     ImageView ivPhoto;
     DatabaseReference mDatabase;
+    File localFile = null;
     private StorageReference mStorageRef;
+    TextView tvEmail, tvName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +95,32 @@ public class MainActivity extends AppCompatActivity {
        // mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User("",ApplicationClass.currentUser.getEmail(),selectedImage));
         mStorageRef = FirebaseStorage.getInstance().getReference();
         ivPhoto= headerView.findViewById(R.id.ivPhoto);
+        tvName = headerView.findViewById(R.id.tvName);
+        tvEmail = headerView.findViewById(R.id.tvEmail);
+        mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ApplicationClass.mainuser = dataSnapshot.getValue(User.class);
+                if (ApplicationClass.mainuser != null) {
+                    String name = ApplicationClass.mainuser.username;
+
+                    if (name.isEmpty())
+                        tvName.setText("Click here to add your name");
+                    else {
+                        tvName.setText(name);
+                    }
+
+                    tvEmail.setText(ApplicationClass.mainuser.email);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         ivPhoto.setOnClickListener(new OnClickListener() {
             @Override
@@ -98,7 +135,42 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(photoPickerIntent, PICK_IMAGE);
             }
         });
-        
+
+
+        StorageReference profile = mStorageRef.child("images/" + ApplicationClass.currentUser.getUid() + "/profile.jpg");
+
+
+        try {
+            localFile = File.createTempFile("profile", "jpg");
+            profile.getFile(localFile)
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            final Uri imageUri = Uri.parse(localFile.toString());
+
+                            //final Uri imageUri = finalLocalFile.toURI();
+                            final InputStream imageStream;
+                            try {
+                                Picasso.get().load(String.valueOf(localFile.toURL())).into(ivPhoto);
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                                Toast.makeText(MainActivity.this, "Error getting the profile picture", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle failed download
+                    // ...
+                    Toast.makeText(MainActivity.this, "Error getting the profile photo", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
 
 
