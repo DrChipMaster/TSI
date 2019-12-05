@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                             final InputStream imageStream;
                             try {
                                 Picasso.get().load(String.valueOf(localFile.toURL())).into(ivPhoto);
+                                //Bitmap ola = Picasso.load(String.valueOf(localFile.toURL())).get();
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                                 Toast.makeText(MainActivity.this, "Error getting the profile picture", Toast.LENGTH_SHORT).show();
