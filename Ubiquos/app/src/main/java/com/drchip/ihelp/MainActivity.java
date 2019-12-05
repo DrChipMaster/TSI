@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(photoPickerIntent, PICK_IMAGE);
             }
         });
+        
+
+
 
 
     }
@@ -128,14 +131,13 @@ public class MainActivity extends AppCompatActivity {
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 ivPhoto.setImageBitmap(selectedImage);
-                StorageReference riversRef = mStorageRef.child("images/" + ApplicationClass.currentUser.getUid() + "/profile.jpg");
+                StorageReference riversRef = mStorageRef.child("images/"+ApplicationClass.currentUser.getUid()+"/profile.jpg");
                 riversRef.putFile(imageUri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 // Get a URL to the uploaded content
                                 Toast.makeText(MainActivity.this, "Done", Toast.LENGTH_SHORT).show();
-                                // Uri downloadUrl = taskSnapshot.getDownloadUrl();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
