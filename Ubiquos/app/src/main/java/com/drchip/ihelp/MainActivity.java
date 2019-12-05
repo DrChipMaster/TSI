@@ -10,7 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -19,12 +21,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -35,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int PICK_IMAGE = 1;
     ImageView ivPhoto;
     DatabaseReference mDatabase;
+    private StorageReference mStorageRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
         mDatabase = FirebaseDatabase.getInstance().getReference();
        // mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User("",ApplicationClass.currentUser.getEmail(),selectedImage));
-
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         ivPhoto= headerView.findViewById(R.id.ivPhoto);
 
         ivPhoto.setOnClickListener(new OnClickListener() {
@@ -90,9 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(photoPickerIntent, PICK_IMAGE);
             }
         });
-
-
-
 
 
     }
@@ -123,7 +128,24 @@ public class MainActivity extends AppCompatActivity {
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 ivPhoto.setImageBitmap(selectedImage);
-               // mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User(ApplicationClass.currentUser.getDisplayName(), ApplicationClass.currentUser.getEmail(), selectedImage));
+                StorageReference riversRef = mStorageRef.child("images/" + ApplicationClass.currentUser.getUid() + "/profile.jpg");
+                riversRef.putFile(imageUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Get a URL to the uploaded content
+                                Toast.makeText(MainActivity.this, "Done", Toast.LENGTH_SHORT).show();
+                                // Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                                // ...
+                            }
+                        });
+                // mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User(ApplicationClass.currentUser.getDisplayName(), ApplicationClass.currentUser.getEmail(), selectedImage));
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
