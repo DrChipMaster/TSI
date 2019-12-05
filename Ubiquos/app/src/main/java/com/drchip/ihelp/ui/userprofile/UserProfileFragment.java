@@ -1,4 +1,4 @@
-package com.drchip.ihelp.ui.slideshow;
+package com.drchip.ihelp.ui.userprofile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,16 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.drchip.ihelp.R;
 
-public class SlideshowFragment extends Fragment {
-    private SlideshowViewModel slideshowViewModel;
+public class UserProfileFragment extends Fragment {
+    private UserProfileViewModel userProfileViewModel;
     Button btnLikedPublications;
     Button btnUserPublications;
     RecyclerView rvUserPublications;
     RecyclerView rvLikedPublications;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel = ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        userProfileViewModel = ViewModelProviders.of(this).get(UserProfileViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         rvUserPublications = root.findViewById(R.id.rvUserPublications);
         rvLikedPublications = root.findViewById(R.id.rvLikedPublications);
