@@ -222,10 +222,15 @@ namespace teste2
                         bool error = false, errorSpace = false, errorComment = false, errorBrackets = false, errorDefine = false;
                         int lenghDefine = 0;
                         // check for things section
+                        if(checkForTabs.Checked)
                         if (checkTabsNumber(j) > 0) existTabs = true;
                         spacecount = checkspaces(j);
 
                         if (j > 0)
+                        {
+
+
+                        if (checkForSpaceCount.Checked)
                         {
                             if (lines[j].Contains('}')) block--;
                             if (spacecount != (block * 4))
@@ -240,7 +245,11 @@ namespace teste2
                             {
                                 block++;
                             }
+                        }
 
+
+                        if (checkForDefines.Checked)
+                        {
                             if (lines[j].Contains("#define "))
                             {
                                 string[] splited = lines[j].Split(' ');
@@ -254,10 +263,11 @@ namespace teste2
                                     }
                                 }
                             }
+                        }
 
 
                         }
-
+                        if(checkForBracketUse.Checked)
                         errorBrackets = checkBraces(j);
 
 
@@ -297,15 +307,16 @@ namespace teste2
                                 color = Color.Brown;
 
                             }
-                            if (aux1 < lines[j].ToCharArray().Length)
+
+                            if (aux1 < lines[j].ToCharArray().Length )
                             {
                                 nextc = lines[j].ToCharArray()[aux1];
-                                if (c == ',' && nextc != ' ')
+                                if (c == ',' && nextc != ' ' && checkForComma.Checked)
                                 {
                                     error = true;
                                     color = Color.Blue;
                                 }
-
+                                if(checkForComments.Checked)
                                 if (checkComments(c, nextc))
                                 {
                                     error = true;
@@ -373,16 +384,6 @@ namespace teste2
                 }
           
 
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
-        {
 
         }
     }
