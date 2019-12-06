@@ -191,6 +191,39 @@ namespace teste2
             report.spaceCountReport.Text = "";
             report.bracketUseReport.Text = "";
             richTextBox1.Text = "";
+
+            if(checkForBracketUse.Checked)
+            {
+
+            }
+            if(checkForComma.Checked)
+            {
+
+            }
+            if(checkForComments.Checked)
+            {
+
+            }
+            if(checkForDefines.Checked)
+            {
+
+            }
+            if(checkForSpaceCount.Checked)
+            {
+
+            }
+            if(checkForTabs.Checked)
+            {
+
+            }
+            if(checkForUnused.Checked)
+            {
+
+            }
+
+
+
+
             report.bracketUseReport.Visible = false;
 
            
@@ -259,6 +292,7 @@ namespace teste2
                                     if (((int)splited[1].ToCharArray()[k] > 96) && ((int)splited[1].ToCharArray()[k] < 123))
                                     {
                                         errorDefine = true;
+                                        
                                         break;
                                     }
                                 }
