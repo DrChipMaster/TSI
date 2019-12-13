@@ -370,6 +370,12 @@ namespace teste2
                                 color = Color.Purple;
 
                             }
+                            if (c=='!')
+                                if(verify_invertion(j, counter))
+                            {
+                                error = true;
+                                color = Color.RosyBrown;
+                            }
                             //chamar aqui!!
 
 
@@ -420,6 +426,32 @@ namespace teste2
 
 
         }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private bool verify_invertion (int line, int positionChar)
+        {
+            int count = 0;
+            for(int i =0; i< lines[line].Length; i++)
+            {
+                if (lines[line].ToCharArray()[i] == '"')
+                    {
+                        if (lines[line].ToCharArray()[i-1] != '\\')
+                            count++;
+                    }
+                else if (lines[line].ToCharArray()[i] == '!')
+                    {
+                    if ((count%2) == 0 )
+                        if (lines[line].ToCharArray()[i + 1] != '=')
+                            if (positionChar == i)
+                                return true;
+                    }
+            }
+            return false;
+        }
     }
 
 
@@ -436,4 +468,5 @@ namespace teste2
         }
     }
 }
+
 
