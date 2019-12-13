@@ -109,7 +109,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(718, 589);
+            this.button1.Location = new System.Drawing.Point(767, 574);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 6;
@@ -119,7 +119,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(629, 589);
+            this.button2.Location = new System.Drawing.Point(662, 574);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
@@ -223,9 +223,9 @@
         public  System.Windows.Forms.TextBox tabReport;
         public System.Windows.Forms.Label tabLabel;
         public System.Windows.Forms.TextBox spaceCountReport;
-        private System.Windows.Forms.Label spaceLabel;
+        public System.Windows.Forms.Label spaceLabel;
         public System.Windows.Forms.TextBox bracketUseReport;
-        private System.Windows.Forms.Label bracketLabel;
+        public System.Windows.Forms.Label bracketLabel;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         public System.Windows.Forms.Label definesLabel;
