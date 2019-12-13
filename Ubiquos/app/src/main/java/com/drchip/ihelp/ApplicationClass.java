@@ -10,7 +10,10 @@ public class ApplicationClass extends Application {
     //  public static
 
     public void onCreate() {
+
+
         super.onCreate();
+
     }
 
 }

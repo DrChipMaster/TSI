@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
                             final Uri imageUri = Uri.parse(localFile.toString());
 
                             //final Uri imageUri = finalLocalFile.toURI();
-                            final InputStream imageStream;
                             try {
                                 Picasso.get().load(String.valueOf(localFile.toURL())).into(ivPhoto);
                                 //Bitmap ola = Picasso.load(String.valueOf(localFile.toURL())).get();
