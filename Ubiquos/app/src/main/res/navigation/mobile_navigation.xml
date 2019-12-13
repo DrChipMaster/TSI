@@ -20,9 +20,9 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.drchip.ihelp.ui.slideshow.SlideshowFragment"
+        android:name="com.drchip.ihelp.ui.userprofile.UserProfileFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_user_profile" />
 
     <fragment
         android:id="@+id/nav_tools"

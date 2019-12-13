@@ -2,6 +2,9 @@ package com.drchip.ihelp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +29,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class Login extends AppCompatActivity {
 
@@ -37,6 +45,7 @@ public class Login extends AppCompatActivity {
     SignInButton signInButton;
     ProgressDialog progressDialog;
     private FirebaseAuth mAuth;// ...
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +111,14 @@ public class Login extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
                                 ApplicationClass.currentUser = mAuth.getCurrentUser();
+                                mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+
+
+
+                                mDatabase.child("giftCodes").child(ApplicationClass.currentUser.getUid()).setValue(20);
+
                                 progressDialog.dismiss();
                                 startActivity(new Intent(Login.this, MainActivity.class));
                                 Login.this.finish();
@@ -177,12 +194,31 @@ public class Login extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             progressDialog.dismiss();
                             ApplicationClass.currentUser = mAuth.getCurrentUser();
-                            startActivity(new Intent(Login.this, MainActivity.class));
-                            Login.this.finish();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Snackbar.make(findViewById(R.id.activity_login), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+                            try {
+                                mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                                final Uri imageUri = ApplicationClass.currentUser.getPhotoUrl();
+                                final InputStream imageStream;
+                                imageStream = getContentResolver().openInputStream(imageUri);
+                                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                                mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User("", ApplicationClass.currentUser.getEmail()));
+
+                            } catch (FileNotFoundException e) {
+                                mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User(ApplicationClass.currentUser.getDisplayName(), ApplicationClass.currentUser.getEmail()));
+
+                                Toast.makeText(Login.this, "Error Login", Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+
+                            }
+
+                                startActivity(new Intent(Login.this, MainActivity.class));
+                                Login.this.finish();
+
+                        }else{
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "signInWithCredential:failure", task.getException());
+                                Snackbar.make(findViewById(R.id.activity_login), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+
                         }
 
                         // ...
