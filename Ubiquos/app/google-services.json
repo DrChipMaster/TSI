@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "543245719833-tni3vgsjclgn4d5ih2an2sm5q863t8tb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.drchip.ihelp",
+            "certificate_hash": "682fe1515eba4c368941fbfbc06dc6905a59fcc0"
+          }
+        },
+        {
+          "client_id": "543245719833-hu5ekiomk5fe263cbuu9hd414c4qrtp4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.drchip.ihelp",
+            "certificate_hash": "259d534e40e5f195d5cc524d2c31dd8105e631d5"
+          }
+        },
+        {
           "client_id": "543245719833-djgvh6bjo5i5e6aq151q8v294j36qct0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
