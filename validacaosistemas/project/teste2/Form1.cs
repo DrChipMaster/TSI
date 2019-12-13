@@ -158,8 +158,11 @@ namespace teste2
                 while (counterChar < lines[line].Length - 1)
                 {
                     if (lines[line].ToCharArray()[counterChar] != ' ' && lines[line].ToCharArray()[counterChar] != (char)9)
-                        if (lines[line].ToCharArray()[counterChar] != '}' && lines[line].ToCharArray()[counterChar] != '}')
-                            return true;
+                        if (lines[line].ToCharArray()[counterChar] != '}')
+                        {
+                            report.bracketUseReport.AppendText("brackets use inappropriate line:" + line);
+                            return true;}
+                            
                     counterChar++;
                 }
             return false;
@@ -314,7 +317,7 @@ namespace teste2
                                     if (((int)splited[1].ToCharArray()[k] > 96) && ((int)splited[1].ToCharArray()[k] < 123))
                                     {
                                         errorDefine = true;
-                                        
+                                        report.definesReport.AppendText("Contains bad define at line:" +j);                                        
                                         break;
                                     }
                                 }
@@ -324,6 +327,7 @@ namespace teste2
 
                         }
                         if(checkForBracketUse.Checked)
+                    
                         errorBrackets = checkBraces(j);
 
 
