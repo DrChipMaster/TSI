@@ -163,7 +163,7 @@ namespace teste2
                     if (lines[line].ToCharArray()[counterChar] != ' ' && lines[line].ToCharArray()[counterChar] != (char)9)
                         if (lines[line].ToCharArray()[counterChar] != '}')
                         {
-                            report.bracketUseReport.AppendText("brackets use inappropriate line:" + line);
+                            report.bracketUseReport.AppendText("brackets use inappropriate line:" + line+"\r\n");
                             return true;}
                             
                     counterChar++;
@@ -190,8 +190,7 @@ namespace teste2
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            if (report.Visible)
-                report.Hide();
+           
             report.Show();
             report.tabReport.Text = "";
             report.spaceCountReport.Text = "";
@@ -320,7 +319,7 @@ namespace teste2
                                     if (((int)splited[1].ToCharArray()[k] > 96) && ((int)splited[1].ToCharArray()[k] < 123))
                                     {
                                         errorDefine = true;
-                                        report.definesReport.AppendText("Contains bad define at line:" +j);                                        
+                                        report.definesReport.AppendText("Contains bad define at line:" +j+"\r\n");                                        
                                         break;
                                     }
                                 }
@@ -376,13 +375,16 @@ namespace teste2
                                 nextc = lines[j].ToCharArray()[aux1];
                                 if (c == ',' && nextc != ' ' && checkForComma.Checked)
                                 {
+
+                                   report.commaReport.AppendText("Found bad use of comma at line" + j + "at character: "+counter+ "\r\n");
                                     error = true;
                                     color = Color.Blue;
                                 }
                                 if(checkForComments.Checked)
                                 if (checkComments(c, nextc))
                                 {
-                                    
+                                    report.unusedReport.AppendText("Found bad use of Comments at line:" +j+"\r\n");
+
                                     error = true;
                                     color = Color.Brown;
                                     errorComment = true;

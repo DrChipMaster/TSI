@@ -109,7 +109,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(767, 574);
+            this.button1.Location = new System.Drawing.Point(1265, 605);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 6;
@@ -119,7 +119,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(662, 574);
+            this.button2.Location = new System.Drawing.Point(1184, 605);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
@@ -177,9 +177,9 @@
             this.unusedLabel.ForeColor = System.Drawing.Color.MediumTurquoise;
             this.unusedLabel.Location = new System.Drawing.Point(562, 314);
             this.unusedLabel.Name = "unusedLabel";
-            this.unusedLabel.Size = new System.Drawing.Size(249, 19);
+            this.unusedLabel.Size = new System.Drawing.Size(239, 19);
             this.unusedLabel.TabIndex = 13;
-            this.unusedLabel.Text = "Unused Variables Report:";
+            this.unusedLabel.Text = "Use of comments Report:";
             // 
             // unusedReport
             // 
@@ -195,7 +195,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::teste2.Properties.Resources.shattered_island;
-            this.ClientSize = new System.Drawing.Size(854, 609);
+            this.ClientSize = new System.Drawing.Size(1352, 640);
             this.Controls.Add(this.unusedLabel);
             this.Controls.Add(this.unusedReport);
             this.Controls.Add(this.commaLabel);
