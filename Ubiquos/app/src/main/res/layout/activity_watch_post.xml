@@ -166,7 +166,7 @@
                     tools:layout_editor_absoluteY="-38dp">
 
                     <com.google.android.gms.maps.MapView
-                        android:id="@+id/map_View"
+                        android:id="@+id/mapView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </FrameLayout>
