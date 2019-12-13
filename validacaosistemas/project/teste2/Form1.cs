@@ -379,6 +379,7 @@ namespace teste2
                                 if(checkForComments.Checked)
                                 if (checkComments(c, nextc))
                                 {
+                                    
                                     error = true;
                                     color = Color.Brown;
                                     errorComment = true;
