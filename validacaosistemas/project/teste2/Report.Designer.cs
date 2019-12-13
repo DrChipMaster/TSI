@@ -50,6 +50,7 @@
             this.tabReport.Location = new System.Drawing.Point(42, 50);
             this.tabReport.Multiline = true;
             this.tabReport.Name = "tabReport";
+            this.tabReport.ReadOnly = true;
             this.tabReport.Size = new System.Drawing.Size(203, 222);
             this.tabReport.TabIndex = 0;
             // 
@@ -71,6 +72,7 @@
             this.spaceCountReport.Location = new System.Drawing.Point(313, 50);
             this.spaceCountReport.Multiline = true;
             this.spaceCountReport.Name = "spaceCountReport";
+            this.spaceCountReport.ReadOnly = true;
             this.spaceCountReport.Size = new System.Drawing.Size(203, 222);
             this.spaceCountReport.TabIndex = 2;
             // 
@@ -92,6 +94,7 @@
             this.bracketUseReport.Location = new System.Drawing.Point(572, 50);
             this.bracketUseReport.Multiline = true;
             this.bracketUseReport.Name = "bracketUseReport";
+            this.bracketUseReport.ReadOnly = true;
             this.bracketUseReport.Size = new System.Drawing.Size(203, 222);
             this.bracketUseReport.TabIndex = 4;
             // 
@@ -145,6 +148,7 @@
             this.definesReport.Location = new System.Drawing.Point(42, 337);
             this.definesReport.Multiline = true;
             this.definesReport.Name = "definesReport";
+            this.definesReport.ReadOnly = true;
             this.definesReport.Size = new System.Drawing.Size(203, 222);
             this.definesReport.TabIndex = 8;
             // 
@@ -166,6 +170,7 @@
             this.commaReport.Location = new System.Drawing.Point(313, 337);
             this.commaReport.Multiline = true;
             this.commaReport.Name = "commaReport";
+            this.commaReport.ReadOnly = true;
             this.commaReport.Size = new System.Drawing.Size(203, 222);
             this.commaReport.TabIndex = 10;
             // 
@@ -187,6 +192,7 @@
             this.unusedReport.Location = new System.Drawing.Point(572, 337);
             this.unusedReport.Multiline = true;
             this.unusedReport.Name = "unusedReport";
+            this.unusedReport.ReadOnly = true;
             this.unusedReport.Size = new System.Drawing.Size(203, 222);
             this.unusedReport.TabIndex = 12;
             // 
