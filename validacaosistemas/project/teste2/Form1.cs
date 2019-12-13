@@ -153,10 +153,13 @@ namespace teste2
 
         private bool checkBraces(int line)
         {
-            int counterChar = 1;
+            int counterChar = 0;
             if (lines[line].Contains("{") || lines[line].Contains("}"))
                 while (counterChar < lines[line].Length - 1)
                 {
+                    if (lines[line].ToCharArray()[counterChar] == '/')
+                        if (lines[line].ToCharArray()[counterChar+1] == '/')
+                            return false;
                     if (lines[line].ToCharArray()[counterChar] != ' ' && lines[line].ToCharArray()[counterChar] != (char)9)
                         if (lines[line].ToCharArray()[counterChar] != '}')
                         {
