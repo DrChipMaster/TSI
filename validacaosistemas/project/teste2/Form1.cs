@@ -186,45 +186,67 @@ namespace teste2
         {
             if (report.Visible)
                 report.Hide();
-            else report.Show();
+            report.Show();
             report.tabReport.Text = "";
             report.spaceCountReport.Text = "";
             report.bracketUseReport.Text = "";
             richTextBox1.Text = "";
+            report.bracketUseReport.Visible = false;
+            report.commaReport.Visible = false;
+            report.definesReport.Visible = false;
+            report.spaceCountReport.Visible = false;
+            report.tabReport.Visible = false;
+            report.unusedReport.Visible = false;
+            report.commaLabel.Visible = false;
+            report.definesLabel.Visible = false;
+            report.spaceLabel.Visible = false;
+            report.tabLabel.Visible = false;
+            report.unusedLabel.Visible = false;
+            report.bracketLabel.Visible = false;
+            
 
-            if(checkForBracketUse.Checked)
+
+
+            if (checkForBracketUse.Checked)
             {
+                report.bracketUseReport.Visible = true;
+                report.bracketLabel.Visible = true;
 
             }
             if(checkForComma.Checked)
             {
-
+                report.commaReport.Visible = true;
+                report.commaLabel.Visible = true;
             }
             if(checkForComments.Checked)
             {
 
+                //report.repot.Visible;
             }
             if(checkForDefines.Checked)
             {
-
+                report.definesReport.Visible= true;
+                report.definesLabel.Visible = true;
             }
             if(checkForSpaceCount.Checked)
             {
-
+                report.spaceCountReport.Visible= true;
+                report.spaceLabel.Visible = true;
             }
             if(checkForTabs.Checked)
             {
-
+                report.tabReport.Visible = true;
+                report.tabLabel.Visible= true;
             }
             if(checkForUnused.Checked)
             {
+                report.unusedReport.Visible = true;
+                report.unusedLabel.Visible = true;
 
             }
 
 
 
-
-            report.bracketUseReport.Visible = false;
 
            
             this.lines = new string[1000];
