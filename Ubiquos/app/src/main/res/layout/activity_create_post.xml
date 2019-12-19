@@ -16,7 +16,7 @@
         android:layout_marginEnd="30dp"
         android:background="@drawable/back_create_post"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/imageView14"
+        app:layout_constraintBottom_toTopOf="@+id/ivCancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,7 +35,7 @@
             android:textSize="30sp" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -62,7 +62,7 @@
             android:textSize="30sp" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/etDescription"
             android:layout_width="match_parent"
             android:layout_height="236dp"
             android:layout_marginStart="15dp"
@@ -87,7 +87,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/ivAddImage"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="right"
@@ -99,7 +99,7 @@
                 app:srcCompat="@drawable/add_image" />
 
             <ImageView
-                android:id="@+id/imageView15"
+                android:id="@+id/ivAddLocation"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="right"
@@ -109,7 +109,7 @@
                 app:srcCompat="@drawable/add_location" />
 
             <ImageView
-                android:id="@+id/imageView16"
+                android:id="@+id/ivAddPhone"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="15dp"
@@ -121,7 +121,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/ivCreatePost"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginEnd="30dp"
@@ -129,12 +129,12 @@
         android:foregroundGravity="right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView14"
+        app:layout_constraintTop_toTopOf="@+id/ivCancel"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/add_post" />
 
     <ImageView
-        android:id="@+id/imageView14"
+        android:id="@+id/ivCancel"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginStart="30dp"
@@ -143,5 +143,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/cancel_post" />
+
+    <ImageView
+        android:id="@+id/ivAddQRCode"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivCreatePost"
+        app:layout_constraintTop_toTopOf="@+id/ivCreatePost"
+        app:layout_constraintVertical_bias="0.37"
+        app:srcCompat="@drawable/ic_add_qrcode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
