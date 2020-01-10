@@ -25,7 +25,7 @@ namespace teste2
             this.path = path;
             try
             {
-                this.lines = new string[1000];
+                this.lines = new string[2024];
                 int spacecount = 0;
                 int lastspacecount = 0;
                 using (StreamReader sr = new StreamReader(path.ToString()))
@@ -243,7 +243,7 @@ namespace teste2
                 report.tabReport.Visible = true;
                 report.tabLabel.Visible= true;
             }
-            if(checkForUnused.Checked)
+            if(checkInversion.Checked)
             {
                 report.unusedReport.Visible = true;
                 report.unusedLabel.Visible = true;

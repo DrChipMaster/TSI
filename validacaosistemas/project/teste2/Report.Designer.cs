@@ -34,7 +34,7 @@
             this.spaceLabel = new System.Windows.Forms.Label();
             this.bracketUseReport = new System.Windows.Forms.TextBox();
             this.bracketLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Export = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.definesLabel = new System.Windows.Forms.Label();
             this.definesReport = new System.Windows.Forms.TextBox();
@@ -42,6 +42,8 @@
             this.commaReport = new System.Windows.Forms.TextBox();
             this.unusedLabel = new System.Windows.Forms.Label();
             this.unusedReport = new System.Windows.Forms.TextBox();
+            this.label_ifinversion = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // tabReport
@@ -110,15 +112,15 @@
             this.bracketLabel.TabIndex = 5;
             this.bracketLabel.Text = "Brackect use Report:";
             // 
-            // button1
+            // Export
             // 
-            this.button1.Location = new System.Drawing.Point(1265, 605);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Export";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.Export.Location = new System.Drawing.Point(1265, 605);
+            this.Export.Name = "Export";
+            this.Export.Size = new System.Drawing.Size(75, 23);
+            this.Export.TabIndex = 6;
+            this.Export.Text = "Export";
+            this.Export.UseVisualStyleBackColor = true;
+            this.Export.Click += new System.EventHandler(this.Button1_Click);
             // 
             // button2
             // 
@@ -196,12 +198,38 @@
             this.unusedReport.Size = new System.Drawing.Size(203, 222);
             this.unusedReport.TabIndex = 12;
             // 
+            // label_ifinversion
+            // 
+            this.label_ifinversion.AutoSize = true;
+            this.label_ifinversion.BackColor = System.Drawing.Color.Transparent;
+            this.label_ifinversion.Font = new System.Drawing.Font("Monospac821 BT", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_ifinversion.ForeColor = System.Drawing.Color.MediumTurquoise;
+            this.label_ifinversion.Location = new System.Drawing.Point(841, 28);
+            this.label_ifinversion.Name = "label_ifinversion";
+            this.label_ifinversion.Size = new System.Drawing.Size(209, 19);
+            this.label_ifinversion.TabIndex = 15;
+            this.label_ifinversion.Text = "If Inversion Report:";
+            this.label_ifinversion.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.textBox1.Location = new System.Drawing.Point(833, 50);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(203, 222);
+            this.textBox1.TabIndex = 14;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::teste2.Properties.Resources.shattered_island;
             this.ClientSize = new System.Drawing.Size(1352, 640);
+            this.Controls.Add(this.label_ifinversion);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.unusedLabel);
             this.Controls.Add(this.unusedReport);
             this.Controls.Add(this.commaLabel);
@@ -209,7 +237,7 @@
             this.Controls.Add(this.definesLabel);
             this.Controls.Add(this.definesReport);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Export);
             this.Controls.Add(this.bracketLabel);
             this.Controls.Add(this.bracketUseReport);
             this.Controls.Add(this.spaceLabel);
@@ -232,7 +260,7 @@
         public System.Windows.Forms.Label spaceLabel;
         public System.Windows.Forms.TextBox bracketUseReport;
         public System.Windows.Forms.Label bracketLabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Export;
         private System.Windows.Forms.Button button2;
         public System.Windows.Forms.Label definesLabel;
         public System.Windows.Forms.TextBox definesReport;
@@ -240,5 +268,7 @@
         public System.Windows.Forms.TextBox commaReport;
         public System.Windows.Forms.Label unusedLabel;
         public System.Windows.Forms.TextBox unusedReport;
+        public System.Windows.Forms.Label label_ifinversion;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }

@@ -36,8 +36,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.checkForDefines = new System.Windows.Forms.CheckBox();
             this.checkForComma = new System.Windows.Forms.CheckBox();
-            this.checkForUnused = new System.Windows.Forms.CheckBox();
             this.checkForComments = new System.Windows.Forms.CheckBox();
+            this.checkInversion = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -129,40 +129,40 @@
             this.checkForComma.Text = "Check Comma-Space";
             this.checkForComma.UseVisualStyleBackColor = false;
             // 
-            // checkForUnused
-            // 
-            this.checkForUnused.AutoSize = true;
-            this.checkForUnused.BackColor = System.Drawing.Color.Transparent;
-            this.checkForUnused.Font = new System.Drawing.Font("Monospac821 BT", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkForUnused.ForeColor = System.Drawing.Color.MediumTurquoise;
-            this.checkForUnused.Location = new System.Drawing.Point(842, 145);
-            this.checkForUnused.Name = "checkForUnused";
-            this.checkForUnused.Size = new System.Drawing.Size(180, 18);
-            this.checkForUnused.TabIndex = 9;
-            this.checkForUnused.Text = "Check Unused Variables";
-            this.checkForUnused.UseVisualStyleBackColor = false;
-            // 
             // checkForComments
             // 
             this.checkForComments.AutoSize = true;
             this.checkForComments.BackColor = System.Drawing.Color.Transparent;
             this.checkForComments.Font = new System.Drawing.Font("Monospac821 BT", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkForComments.ForeColor = System.Drawing.Color.MediumTurquoise;
-            this.checkForComments.Location = new System.Drawing.Point(842, 168);
+            this.checkForComments.Location = new System.Drawing.Point(842, 145);
             this.checkForComments.Name = "checkForComments";
             this.checkForComments.Size = new System.Drawing.Size(124, 18);
             this.checkForComments.TabIndex = 10;
             this.checkForComments.Text = "Check Comments";
             this.checkForComments.UseVisualStyleBackColor = false;
             // 
+            // checkInversion
+            // 
+            this.checkInversion.AutoSize = true;
+            this.checkInversion.BackColor = System.Drawing.Color.Transparent;
+            this.checkInversion.ForeColor = System.Drawing.Color.MediumTurquoise;
+            this.checkInversion.Location = new System.Drawing.Point(842, 170);
+            this.checkInversion.Name = "checkInversion";
+            this.checkInversion.Size = new System.Drawing.Size(126, 17);
+            this.checkInversion.TabIndex = 11;
+            this.checkInversion.Text = "Check for if Inversion";
+            this.checkInversion.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::teste2.Properties.Resources.shattered_island;
             this.ClientSize = new System.Drawing.Size(1107, 680);
+            this.Controls.Add(this.checkInversion);
             this.Controls.Add(this.checkForComments);
-            this.Controls.Add(this.checkForUnused);
             this.Controls.Add(this.checkForComma);
             this.Controls.Add(this.checkForDefines);
             this.Controls.Add(this.button1);
@@ -173,6 +173,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Form1";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,8 +187,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox checkForDefines;
         private System.Windows.Forms.CheckBox checkForComma;
-        private System.Windows.Forms.CheckBox checkForUnused;
         private System.Windows.Forms.CheckBox checkForComments;
+        private System.Windows.Forms.CheckBox checkInversion;
     }
 }
 
