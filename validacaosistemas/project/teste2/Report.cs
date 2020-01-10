@@ -62,6 +62,10 @@ namespace teste2
             File.Delete(rootFolder);
             System.IO.File.WriteAllText(rootFolder, text);
             int CommentError = File.ReadLines(rootFolder).Count();
+            rootFolder += "Switch.txt";
+            File.Delete(rootFolder);
+            System.IO.File.WriteAllText(rootFolder, text);
+            int errorswitch = File.ReadLines(rootFolder).Count();
             text = " Found "+ errortab+ " BadSmells in Tabs Report\n\n"
                +" Found " + SpaceError + " BadSmells  in Space Report\n\n"
                + " Found " + bracketError + " BadSmells in bracket Report\n\n"
@@ -69,7 +73,8 @@ namespace teste2
                 + " Found " + defError + " BadSmells in Define Report\n\n"
                 + " Found " + CommaError+ " BadSmells in Comma Report\n\n"
                + " Found " + CommentError + " BadSmells in Comment Report\n\n"
-                + " Total  BadSmells = " + (errortab+SpaceError+bracketError+InvError+defError+CommaError+CommentError);
+                + " Found " + errorswitch + " BadSmells in Switch Report\n\n"
+                + " Total  BadSmells = " + (errortab+SpaceError+bracketError+InvError+defError+CommaError+CommentError + errorswitch);
             rootFolder = path + "GENERALReport.txt";
             File.Delete(rootFolder);
             System.IO.File.WriteAllText(rootFolder, text);
@@ -93,6 +98,11 @@ namespace teste2
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void switchReport_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
