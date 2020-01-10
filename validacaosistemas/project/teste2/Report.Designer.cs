@@ -252,6 +252,7 @@
             this.switchReport.ReadOnly = true;
             this.switchReport.Size = new System.Drawing.Size(203, 222);
             this.switchReport.TabIndex = 16;
+            this.switchReport.TextChanged += new System.EventHandler(this.switchReport_TextChanged);
             // 
             // Report
             // 
