@@ -44,6 +44,8 @@
             this.commentsReport = new System.Windows.Forms.TextBox();
             this.inversionLabel = new System.Windows.Forms.Label();
             this.inversionReport = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.switchReport = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // tabReport
@@ -229,12 +231,36 @@
             this.inversionReport.TabIndex = 14;
             this.inversionReport.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Monospac821 BT", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.MediumTurquoise;
+            this.label1.Location = new System.Drawing.Point(807, 314);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(259, 19);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Switch complexity Report:";
+            // 
+            // switchReport
+            // 
+            this.switchReport.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.switchReport.Location = new System.Drawing.Point(833, 337);
+            this.switchReport.Multiline = true;
+            this.switchReport.Name = "switchReport";
+            this.switchReport.ReadOnly = true;
+            this.switchReport.Size = new System.Drawing.Size(203, 222);
+            this.switchReport.TabIndex = 16;
+            // 
             // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::teste2.Properties.Resources.shattered_island;
             this.ClientSize = new System.Drawing.Size(1352, 640);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.switchReport);
             this.Controls.Add(this.inversionLabel);
             this.Controls.Add(this.inversionReport);
             this.Controls.Add(this.commentsLabel);
@@ -277,5 +303,7 @@
         public System.Windows.Forms.TextBox commentsReport;
         public System.Windows.Forms.Label inversionLabel;
         public System.Windows.Forms.TextBox inversionReport;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox switchReport;
     }
 }

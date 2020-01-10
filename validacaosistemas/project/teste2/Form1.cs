@@ -125,14 +125,15 @@ namespace teste2
                         }
                         if (numbLines > 12)
                         {
-                            numbCases++;
+                            cycles++;
                             i = i + numbLines;
                             numbLines = 0;
                             switchLong = 1;
+
                         }
                         else
                         {
-                            numbCases++;
+                            cycles++;
                             i = i + numbLines;
                             numbLines = 0;
                             switchLong = 0;
