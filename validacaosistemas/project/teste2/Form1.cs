@@ -259,8 +259,8 @@ namespace teste2
             }
 
 
-            Thread thr = new Thread(new ThreadStart(doScan));
-            thr.Start();
+            //Thread thr = new Thread(new ThreadStart(doScan));
+            //thr.Start();
             
 
 
