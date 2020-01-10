@@ -18,7 +18,9 @@ namespace teste2
         string[] lines;
         string path;
         private Report report;
-    public Form1(string path)
+        int linesnumber = 0;
+        int switchLong = 0;
+        public Form1(string path)
         {
             report = new Report();
             InitializeComponent();
@@ -30,7 +32,6 @@ namespace teste2
                 int lastspacecount = 0;
                 using (StreamReader sr = new StreamReader(path.ToString()))
                 {
-                    int linesnumber = 0;
                     bool existTabs = false;
                     string text = "";
                     while (!sr.EndOfStream)
@@ -93,7 +94,53 @@ namespace teste2
         }
 
 
-
+        private void checkSwitchCasesSize()
+        {
+            int i = 0;
+            int numbLines = 0;
+            int numbCases = 0;
+            int index;
+            for (i = 0; i < linesnumber; i++) { 
+                if(lines[i].Contains("switch")){
+                    //find last switch case end
+                    index = i++;
+                    int cycles = 0;
+                    while (!lines[index].Contains("switch"))
+                    {
+                        if(lines[index].Contains("break;"))
+                            numbCases++;
+                        index++;
+                    }
+                    while(cycles < numbCases)
+                    {
+                        while (!lines[i].Contains("case"))
+                        {
+                            i++;
+                        }
+                        i++;
+                        while (!lines[i].Contains("break;"))
+                        {
+                            numbLines++;
+                        }
+                        if (numbLines > 12)
+                        {
+                            numbCases++;
+                            i = i + numbLines;
+                            numbLines = 0;
+                            switchLong = 1;
+                        }
+                        else
+                        {
+                            numbCases++;
+                            i = i + numbLines;
+                            numbLines = 0;
+                            switchLong = 0;
+                        }
+                    }
+                    i = index;
+                }
+            }
+        }
 
 
         private int checkTabsNumber(int i)
