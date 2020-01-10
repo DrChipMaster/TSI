@@ -104,16 +104,27 @@ namespace teste2
             for (i = 0; i < linesnumber; i++) { 
                 if(lines[i].Contains("switch")){
                     //find last switch case end
+                    int firtsLine = i;
                     index = i++;
                     int cycles = 0;
-                    while (!lines[index].Contains("switch"))
+                    while ((!lines[index].Contains("case" )|| !lines[index].Contains("break;") ) &&  index<linesnumber)
                     {
-                        if(lines[index].Contains("break;"))
-                            numbCases++;
+                      
+                        numbCases++;
                         index++;
                     }
+                    if(index-numbCases >12)
+                    {
+                        report.switchReport.AppendText("Error on switch case starting at line: " + firtsLine + "\r\n!");
+
+                    }
+
+                    /*
                     while(cycles < numbCases)
                     {
+
+
+                        /*
                         while (!lines[i].Contains("case"))
                         {
                             i++;
@@ -129,6 +140,10 @@ namespace teste2
                             i = i + numbLines;
                             numbLines = 0;
                             switchLong = 1;
+                            report.switchReport.AppendText("Error on switch case starting at line: " +firtsLine+"\r\n!");
+                           //report.tabReport.AppendText("Contains " + tabNumber + " TABS in lines: " + i + "\r\n");
+
+
 
                         }
                         else
@@ -138,8 +153,11 @@ namespace teste2
                             numbLines = 0;
                             switchLong = 0;
                         }
+                        
                     }
-                    i = index;
+                    
+                    */
+
                 }
             }
         }
@@ -309,12 +327,30 @@ namespace teste2
 
             //Thread thr = new Thread(new ThreadStart(doScan));
             //thr.Start();
-            
 
 
+            doScan();
 
 
-
+            /*
+             * switch a:
+             * case b:
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * ola
+             * break;*/
 
 
 
@@ -328,6 +364,7 @@ namespace teste2
             int lastspacecount = 0;
             // Open the text file using a stream reader.
 
+
             using (StreamReader sr = new StreamReader(path.ToString()))
             {
                 int linesnumber = 0;
@@ -340,6 +377,7 @@ namespace teste2
 
                     linesnumber++;
                 }
+               // checkSwitchCasesSize();
 
                 int block = 0;
                 for (int j = 0; j < linesnumber; j++)
