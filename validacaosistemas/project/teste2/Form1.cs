@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -197,6 +198,9 @@ namespace teste2
             report.bracketUseReport.Text = "";
             richTextBox1.Text = "";
             report.inversionReport.Text = "";
+            report.commaReport.Text = "";
+            report.definesReport.Text = "";
+            report.commentsReport.Text = "";
             report.bracketUseReport.Visible = false;
             report.inversionReport.Visible = false;
             report.inversionLabel.Visible = false;
@@ -255,43 +259,56 @@ namespace teste2
             }
 
 
+            Thread thr = new Thread(new ThreadStart(doScan));
+            thr.Start();
+            
 
 
-           
+
+
+
+
+
+
+
+
+        }
+        private void doScan()
+        {
             this.lines = new string[1000];
             int spacecount = 0;
             int lastspacecount = 0;
-             // Open the text file using a stream reader.
-                
-                using (StreamReader sr = new StreamReader(path.ToString()))
+            // Open the text file using a stream reader.
+
+            using (StreamReader sr = new StreamReader(path.ToString()))
+            {
+                int linesnumber = 0;
+                bool existTabs = false;
+                string text = "";
+                while (!sr.EndOfStream)
                 {
-                    int linesnumber = 0;
-                    bool existTabs = false;
-                    string text = "";
-                    while (!sr.EndOfStream)
-                    {
-                        lines[linesnumber] = sr.ReadLine();
-                        text += lines[linesnumber];
+                    lines[linesnumber] = sr.ReadLine();
+                    text += lines[linesnumber];
 
-                        linesnumber++;
-                    }
+                    linesnumber++;
+                }
 
-                    int block = 0;
-                    for (int j = 0; j < linesnumber; j++)
-                    {
-                        richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Regular);
-                        richTextBox1.AppendText(j + ":    ");
-                        int counter = 0;
-                        Color color = Color.Red;
-                        bool error = false, errorSpace = false, errorComment = false, errorBrackets = false, errorDefine = false;
-                        int lenghDefine = 0;
-                        // check for things section
-                        if(checkForTabs.Checked)
+                int block = 0;
+                for (int j = 0; j < linesnumber; j++)
+                {
+                    richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Regular);
+                    richTextBox1.AppendText(j + ":    ");
+                    int counter = 0;
+                    Color color = Color.Red;
+                    bool error = false, errorSpace = false, errorComment = false, errorBrackets = false, errorDefine = false;
+                    int lenghDefine = 0;
+                    // check for things section
+                    if (checkForTabs.Checked)
                         if (checkTabsNumber(j) > 0) existTabs = true;
-                        spacecount = checkspaces(j);
+                    spacecount = checkspaces(j);
 
-                        if (j > 0)
-                        {
+                    if (j > 0)
+                    {
 
 
                         if (checkForSpaceCount.Checked)
@@ -323,7 +340,7 @@ namespace teste2
                                     if (((int)splited[1].ToCharArray()[k] > 96) && ((int)splited[1].ToCharArray()[k] < 123))
                                     {
                                         errorDefine = true;
-                                        report.definesReport.AppendText("Contains bad define at line:" +j+"\r\n");                                        
+                                        report.definesReport.AppendText("Contains bad define at line:" + j + "\r\n");
                                         break;
                                     }
                                 }
@@ -331,83 +348,83 @@ namespace teste2
                         }
 
 
-                        }
-                        if(checkForBracketUse.Checked)
-                    
+                    }
+                    if (checkForBracketUse.Checked)
+
                         errorBrackets = checkBraces(j);
 
 
-                        // check for charactes section
+                    // check for charactes section
 
-                        while (counter < lines[j].Length)
+                    while (counter < lines[j].Length)
+                    {
+                        char c = lines[j].ToCharArray()[counter];
+
+                        if (existTabs)
                         {
-                            char c = lines[j].ToCharArray()[counter];
-
-                            if (existTabs)
-                            {
-                                Color aux;
-                                if ((aux = checkTabs(c)) != Color.Pink)
-                                {
-                                    error = true;
-                                    color = aux;
-
-                                }
-                            }
-                            if (errorSpace && counter != 0 && c != ' ')
-                            {
-
-                                errorSpace = false;
-                            }
-
-                            if ((errorSpace && c == ' ') || (errorSpace && counter == 0))
+                            Color aux;
+                            if ((aux = checkTabs(c)) != Color.Pink)
                             {
                                 error = true;
-                                color = Color.Green;
+                                color = aux;
+
                             }
-                            int aux1 = counter + 1;
-                            char nextc;
-                            if (errorComment)
+                        }
+                        if (errorSpace && counter != 0 && c != ' ')
+                        {
+
+                            errorSpace = false;
+                        }
+
+                        if ((errorSpace && c == ' ') || (errorSpace && counter == 0))
+                        {
+                            error = true;
+                            color = Color.Green;
+                        }
+                        int aux1 = counter + 1;
+                        char nextc;
+                        if (errorComment)
+                        {
+                            errorComment = false;
+                            error = true;
+                            color = Color.Brown;
+
+                        }
+
+                        if (aux1 < lines[j].ToCharArray().Length)
+                        {
+                            nextc = lines[j].ToCharArray()[aux1];
+                            if (c == ',' && nextc != ' ' && checkForComma.Checked)
                             {
-                                errorComment = false;
+
+                                report.commaReport.AppendText("Found bad use of comma at line" + j + "at character: " + counter + "\r\n");
                                 error = true;
-                                color = Color.Brown;
-
+                                color = Color.Blue;
                             }
-
-                            if (aux1 < lines[j].ToCharArray().Length )
-                            {
-                                nextc = lines[j].ToCharArray()[aux1];
-                                if (c == ',' && nextc != ' ' && checkForComma.Checked)
-                                {
-
-                                   report.commaReport.AppendText("Found bad use of comma at line" + j + "at character: "+counter+ "\r\n");
-                                    error = true;
-                                    color = Color.Blue;
-                                }
-                                if(checkForComments.Checked)
+                            if (checkForComments.Checked)
                                 if (checkComments(c, nextc))
                                 {
-                                    report.commentsReport.AppendText("Found bad use of Comments at line:" +j+"\r\n");
+                                    report.commentsReport.AppendText("Found bad use of Comments at line:" + j + "\r\n");
 
                                     error = true;
                                     color = Color.Brown;
                                     errorComment = true;
                                 }
-                            }
-                            if (errorBrackets && (c == '{' || c == '}'))
-                            {
-                                error = true;
-                                color = Color.Yellow;
-                            }
+                        }
+                        if (errorBrackets && (c == '{' || c == '}'))
+                        {
+                            error = true;
+                            color = Color.Yellow;
+                        }
 
-                            if (errorDefine && counter > 7 && counter < lenghDefine + 8)
-                            {
-                                error = true;
-                                color = Color.Purple;
+                        if (errorDefine && counter > 7 && counter < lenghDefine + 8)
+                        {
+                            error = true;
+                            color = Color.Purple;
 
-                            }
-                            if (c=='!')
-                                if(verify_invertion(j, counter))
+                        }
+                        if (c == '!')
+                            if (verify_invertion(j, counter))
                             {
 
                                 error = true;
@@ -426,44 +443,41 @@ namespace teste2
 
 
                         if (error)
-                            {
+                        {
 
-                                richTextBox1.SelectionFont = new Font("Times New Roman", 20, FontStyle.Underline);
-                                richTextBox1.AppendText(c.ToString(), color);
+                            richTextBox1.SelectionFont = new Font("Times New Roman", 20, FontStyle.Underline);
+                            richTextBox1.AppendText(c.ToString(), color);
 
-                                error = false;
-                                color = Color.Black;
+                            error = false;
+                            color = Color.Black;
 
-
-                            }
-                            else
-                            {
-                                richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Regular);
-                                richTextBox1.AppendText(lines[j].ToCharArray()[counter].ToString());
-                            }
-                            //if (haveerror)
-                            //    errorSpace = true;
-
-                            counter++;
 
                         }
-                        existTabs = false;
-                        richTextBox1.AppendText("\r\n");
-                        // checkTabs(j);
+                        else
+                        {
+                            richTextBox1.SelectionFont = new Font("Times New Roman", 10, FontStyle.Regular);
+                            richTextBox1.AppendText(lines[j].ToCharArray()[counter].ToString());
+                        }
+                        //if (haveerror)
+                        //    errorSpace = true;
 
-
-
-                        //checkUnusedVariables
-                        //if( line.)
+                        counter++;
 
                     }
+                    existTabs = false;
+                    richTextBox1.AppendText("\r\n");
+                    // checkTabs(j);
 
 
+
+                    //checkUnusedVariables
+                    //if( line.)
 
                 }
-          
 
 
+
+            }
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
