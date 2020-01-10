@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace teste2
@@ -59,7 +60,7 @@ namespace teste2
 
 
 }
-
+        List<int> intList = new List<int>();
         private void TextBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -102,21 +103,30 @@ namespace teste2
             int numbCases = 0;
             int index;
             for (i = 0; i < linesnumber; i++) { 
-                if(lines[i].Contains("switch")){
+                
                     //find last switch case end
                     int firtsLine = i;
-                    index = i++;
-                    int cycles = 0;
-                    while ((!lines[index].Contains("case" )|| !lines[index].Contains("break;") ) &&  index<linesnumber)
+                  
+                    int cycles = i;
+                    
+                    if (lines[i].Contains("case ") || lines[i].Contains("default"))
                     {
-                      
-                        numbCases++;
-                        index++;
-                    }
-                    if(index-numbCases >12)
-                    {
-                        report.switchReport.AppendText("Error on switch case starting at line: " + firtsLine + "\r\n!");
+                        index = i++;
+                        numbCases = 0;
 
+                        while (true)
+                        {
+
+                            numbCases++;
+                            index++;
+                        if ((lines[index].Contains("case") || lines[index].Contains("break;")) || (index > linesnumber - 1)) break;
+                        }
+                        if (numbCases > 12 && index <linesnumber -1)
+                        {
+                            intList.Add(firtsLine);
+                            report.switchReport.AppendText("Error on switch case starting at line: " + firtsLine + "\r\n");
+
+                        }
                     }
 
                     /*
@@ -158,7 +168,7 @@ namespace teste2
                     
                     */
 
-                }
+                
             }
         }
 
@@ -254,6 +264,8 @@ namespace teste2
         
 
     }
+        private static System.Timers.Timer aTimer;
+
 
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -267,6 +279,9 @@ namespace teste2
             report.commaReport.Text = "";
             report.definesReport.Text = "";
             report.commentsReport.Text = "";
+            report.switchReport.Text = "";
+            report.switchLabel.Visible = false;
+            report.switchReport.Visible = false;
             report.bracketUseReport.Visible = false;
             report.inversionReport.Visible = false;
             report.inversionLabel.Visible = false;
@@ -282,10 +297,10 @@ namespace teste2
             report.commentsLabel.Visible = false;
             report.bracketLabel.Visible = false;
 
-            
 
 
 
+            intList = new List<int>();
             if (checkForBracketUse.Checked)
             {
                 report.bracketUseReport.Visible = true;
@@ -323,41 +338,50 @@ namespace teste2
                 report.inversionLabel.Visible = true;
                 report.inversionReport.Visible = true;
             }
+            if(checkSwitch.Checked)
+            {
+                report.switchLabel.Visible = true;
+                report.switchReport.Visible = true;
+            }
 
 
             //Thread thr = new Thread(new ThreadStart(doScan));
             //thr.Start();
 
-
-            doScan();
+            aTimer = new System.Timers.Timer(200);
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = false;
+            aTimer.Enabled = true;
+            //  doScan();
 
 
             /*
              * switch a:
              * case b:
+                * ola
              * ola
              * ola
              * ola
              * ola
              * ola
+             ola
              * ola
-             * ola
-             * ola
-             * ola
-             * ola
-             * ola
-             * ola
-             * ola
-             * ola
-             * ola
-             * break;*/
+             *  break;  */
 
-
+            doScan();
 
 
 
         }
-        private void doScan()
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            // Form1 aux = (Form1)source;
+            //this.Dispatcher.Invoke((Action)delegate () { /* update UI */ });
+           // doScan();
+
+        }
+        public void doScan()
         {
             this.lines = new string[1000];
             int spacecount = 0;
@@ -377,7 +401,8 @@ namespace teste2
 
                     linesnumber++;
                 }
-               // checkSwitchCasesSize();
+                if(checkSwitch.Checked)
+                checkSwitchCasesSize();
 
                 int block = 0;
                 for (int j = 0; j < linesnumber; j++)
@@ -502,6 +527,14 @@ namespace teste2
                             error = true;
                             color = Color.Yellow;
                         }
+                        for(int b=0; b <intList.Count;b++)
+                        {
+                            if(j== intList[b])
+                            {
+                                error = true;
+                                color = Color.BlueViolet;
+                            }
+                        }
 
                         if (errorDefine && counter > 7 && counter < lenghDefine + 8)
                         {
@@ -509,8 +542,8 @@ namespace teste2
                             color = Color.Purple;
 
                         }
-                        if (c == '!')
-                            if (verify_invertion(j, counter))
+                        if (c == '!' && checkInversion.Checked)
+                            if (verify_invertion(j, counter) )
                             {
 
                                 error = true;
@@ -590,6 +623,11 @@ namespace teste2
                     }
             }
             return false;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

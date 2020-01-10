@@ -45,6 +45,8 @@
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.checkSwitch = new System.Windows.Forms.CheckBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -52,6 +54,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -161,7 +164,7 @@
             this.checkInversion.AutoSize = true;
             this.checkInversion.BackColor = System.Drawing.Color.Transparent;
             this.checkInversion.ForeColor = System.Drawing.Color.MediumTurquoise;
-            this.checkInversion.Location = new System.Drawing.Point(840, 176);
+            this.checkInversion.Location = new System.Drawing.Point(842, 179);
             this.checkInversion.Name = "checkInversion";
             this.checkInversion.Size = new System.Drawing.Size(126, 17);
             this.checkInversion.TabIndex = 11;
@@ -231,6 +234,28 @@
             this.pictureBox7.TabIndex = 18;
             this.pictureBox7.TabStop = false;
             // 
+            // checkSwitch
+            // 
+            this.checkSwitch.AutoSize = true;
+            this.checkSwitch.BackColor = System.Drawing.Color.Transparent;
+            this.checkSwitch.ForeColor = System.Drawing.Color.MediumTurquoise;
+            this.checkSwitch.Location = new System.Drawing.Point(842, 202);
+            this.checkSwitch.Name = "checkSwitch";
+            this.checkSwitch.Size = new System.Drawing.Size(171, 17);
+            this.checkSwitch.TabIndex = 19;
+            this.checkSwitch.Text = "Check Swicth case Complexity";
+            this.checkSwitch.UseVisualStyleBackColor = false;
+            this.checkSwitch.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.BackColor = System.Drawing.Color.BlueViolet;
+            this.pictureBox8.Location = new System.Drawing.Point(1039, 199);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox8.TabIndex = 20;
+            this.pictureBox8.TabStop = false;
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -238,6 +263,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::teste2.Properties.Resources.shattered_island;
             this.ClientSize = new System.Drawing.Size(1107, 680);
+            this.Controls.Add(this.pictureBox8);
+            this.Controls.Add(this.checkSwitch);
             this.Controls.Add(this.pictureBox7);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pictureBox5);
@@ -264,6 +291,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,6 +314,8 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.CheckBox checkSwitch;
+        private System.Windows.Forms.PictureBox pictureBox8;
     }
 }
 
