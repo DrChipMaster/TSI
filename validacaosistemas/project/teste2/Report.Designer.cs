@@ -40,10 +40,10 @@
             this.definesReport = new System.Windows.Forms.TextBox();
             this.commaLabel = new System.Windows.Forms.Label();
             this.commaReport = new System.Windows.Forms.TextBox();
-            this.unusedLabel = new System.Windows.Forms.Label();
-            this.unusedReport = new System.Windows.Forms.TextBox();
-            this.label_ifinversion = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.commentsLabel = new System.Windows.Forms.Label();
+            this.commentsReport = new System.Windows.Forms.TextBox();
+            this.inversionLabel = new System.Windows.Forms.Label();
+            this.inversionReport = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // tabReport
@@ -176,51 +176,51 @@
             this.commaReport.Size = new System.Drawing.Size(203, 222);
             this.commaReport.TabIndex = 10;
             // 
-            // unusedLabel
+            // commentsLabel
             // 
-            this.unusedLabel.AutoSize = true;
-            this.unusedLabel.BackColor = System.Drawing.Color.Transparent;
-            this.unusedLabel.Font = new System.Drawing.Font("Monospac821 BT", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unusedLabel.ForeColor = System.Drawing.Color.MediumTurquoise;
-            this.unusedLabel.Location = new System.Drawing.Point(562, 314);
-            this.unusedLabel.Name = "unusedLabel";
-            this.unusedLabel.Size = new System.Drawing.Size(239, 19);
-            this.unusedLabel.TabIndex = 13;
-            this.unusedLabel.Text = "Use of comments Report:";
+            this.commentsLabel.AutoSize = true;
+            this.commentsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.commentsLabel.Font = new System.Drawing.Font("Monospac821 BT", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.commentsLabel.ForeColor = System.Drawing.Color.MediumTurquoise;
+            this.commentsLabel.Location = new System.Drawing.Point(562, 314);
+            this.commentsLabel.Name = "commentsLabel";
+            this.commentsLabel.Size = new System.Drawing.Size(239, 19);
+            this.commentsLabel.TabIndex = 13;
+            this.commentsLabel.Text = "Use of comments Report:";
             // 
-            // unusedReport
+            // commentsReport
             // 
-            this.unusedReport.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.unusedReport.Location = new System.Drawing.Point(572, 337);
-            this.unusedReport.Multiline = true;
-            this.unusedReport.Name = "unusedReport";
-            this.unusedReport.ReadOnly = true;
-            this.unusedReport.Size = new System.Drawing.Size(203, 222);
-            this.unusedReport.TabIndex = 12;
+            this.commentsReport.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.commentsReport.Location = new System.Drawing.Point(572, 337);
+            this.commentsReport.Multiline = true;
+            this.commentsReport.Name = "commentsReport";
+            this.commentsReport.ReadOnly = true;
+            this.commentsReport.Size = new System.Drawing.Size(203, 222);
+            this.commentsReport.TabIndex = 12;
             // 
-            // label_ifinversion
+            // inversionLabel
             // 
-            this.label_ifinversion.AutoSize = true;
-            this.label_ifinversion.BackColor = System.Drawing.Color.Transparent;
-            this.label_ifinversion.Font = new System.Drawing.Font("Monospac821 BT", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_ifinversion.ForeColor = System.Drawing.Color.MediumTurquoise;
-            this.label_ifinversion.Location = new System.Drawing.Point(841, 28);
-            this.label_ifinversion.Name = "label_ifinversion";
-            this.label_ifinversion.Size = new System.Drawing.Size(209, 19);
-            this.label_ifinversion.TabIndex = 15;
-            this.label_ifinversion.Text = "If Inversion Report:";
-            this.label_ifinversion.Click += new System.EventHandler(this.label1_Click);
+            this.inversionLabel.AutoSize = true;
+            this.inversionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.inversionLabel.Font = new System.Drawing.Font("Monospac821 BT", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.inversionLabel.ForeColor = System.Drawing.Color.MediumTurquoise;
+            this.inversionLabel.Location = new System.Drawing.Point(841, 28);
+            this.inversionLabel.Name = "inversionLabel";
+            this.inversionLabel.Size = new System.Drawing.Size(209, 19);
+            this.inversionLabel.TabIndex = 15;
+            this.inversionLabel.Text = "If Inversion Report:";
+            this.inversionLabel.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox1
+            // inversionReport
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.textBox1.Location = new System.Drawing.Point(833, 50);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(203, 222);
-            this.textBox1.TabIndex = 14;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.inversionReport.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.inversionReport.Location = new System.Drawing.Point(833, 50);
+            this.inversionReport.Multiline = true;
+            this.inversionReport.Name = "inversionReport";
+            this.inversionReport.ReadOnly = true;
+            this.inversionReport.Size = new System.Drawing.Size(203, 222);
+            this.inversionReport.TabIndex = 14;
+            this.inversionReport.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Report
             // 
@@ -228,10 +228,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::teste2.Properties.Resources.shattered_island;
             this.ClientSize = new System.Drawing.Size(1352, 640);
-            this.Controls.Add(this.label_ifinversion);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.unusedLabel);
-            this.Controls.Add(this.unusedReport);
+            this.Controls.Add(this.inversionLabel);
+            this.Controls.Add(this.inversionReport);
+            this.Controls.Add(this.commentsLabel);
+            this.Controls.Add(this.commentsReport);
             this.Controls.Add(this.commaLabel);
             this.Controls.Add(this.commaReport);
             this.Controls.Add(this.definesLabel);
@@ -266,9 +266,9 @@
         public System.Windows.Forms.TextBox definesReport;
         public System.Windows.Forms.Label commaLabel;
         public System.Windows.Forms.TextBox commaReport;
-        public System.Windows.Forms.Label unusedLabel;
-        public System.Windows.Forms.TextBox unusedReport;
-        public System.Windows.Forms.Label label_ifinversion;
-        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.Label commentsLabel;
+        public System.Windows.Forms.TextBox commentsReport;
+        public System.Windows.Forms.Label inversionLabel;
+        public System.Windows.Forms.TextBox inversionReport;
     }
 }

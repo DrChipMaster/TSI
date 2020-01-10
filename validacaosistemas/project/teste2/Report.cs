@@ -12,8 +12,11 @@ namespace teste2
 {
     public partial class Report : Form
     {
-        public Report()
+        string path;
+        public Report(string files)
         {
+            path = files;
+
             InitializeComponent();
         }
 
@@ -29,7 +32,6 @@ namespace teste2
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

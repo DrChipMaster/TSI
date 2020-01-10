@@ -173,7 +173,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Form1";
-            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

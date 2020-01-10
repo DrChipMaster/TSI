@@ -20,7 +20,7 @@ namespace teste2
         private Report report;
     public Form1(string path)
         {
-            report = new Report();
+            report = new Report(path);
             InitializeComponent();
             this.path = path;
             try
@@ -196,18 +196,22 @@ namespace teste2
             report.spaceCountReport.Text = "";
             report.bracketUseReport.Text = "";
             richTextBox1.Text = "";
+            report.inversionReport.Text = "";
             report.bracketUseReport.Visible = false;
+            report.inversionReport.Visible = false;
+            report.inversionLabel.Visible = false;
             report.commaReport.Visible = false;
             report.definesReport.Visible = false;
             report.spaceCountReport.Visible = false;
             report.tabReport.Visible = false;
-            report.unusedReport.Visible = false;
+            report.commentsReport.Visible = false;
             report.commaLabel.Visible = false;
             report.definesLabel.Visible = false;
             report.spaceLabel.Visible = false;
             report.tabLabel.Visible = false;
-            report.unusedLabel.Visible = false;
+            report.commentsLabel.Visible = false;
             report.bracketLabel.Visible = false;
+
             
 
 
@@ -225,7 +229,8 @@ namespace teste2
             }
             if(checkForComments.Checked)
             {
-
+                report.commentsReport.Visible = true;
+                report.commentsLabel.Visible = true;
                 //report.repot.Visible;
             }
             if(checkForDefines.Checked)
@@ -245,9 +250,8 @@ namespace teste2
             }
             if(checkInversion.Checked)
             {
-                report.unusedReport.Visible = true;
-                report.unusedLabel.Visible = true;
-
+                report.inversionLabel.Visible = true;
+                report.inversionReport.Visible = true;
             }
 
 
@@ -383,7 +387,7 @@ namespace teste2
                                 if(checkForComments.Checked)
                                 if (checkComments(c, nextc))
                                 {
-                                    report.unusedReport.AppendText("Found bad use of Comments at line:" +j+"\r\n");
+                                    report.commentsReport.AppendText("Found bad use of Comments at line:" +j+"\r\n");
 
                                     error = true;
                                     color = Color.Brown;
@@ -405,10 +409,13 @@ namespace teste2
                             if (c=='!')
                                 if(verify_invertion(j, counter))
                             {
+
                                 error = true;
                                 color = Color.RosyBrown;
+                                report.inversionReport.AppendText("Contains bad inversion at line:" + j + "\r\n");
+
                             }
-                            //chamar aqui!!
+                        //chamar aqui!!
 
 
 
@@ -418,7 +425,7 @@ namespace teste2
 
 
 
-                            if (error)
+                        if (error)
                             {
 
                                 richTextBox1.SelectionFont = new Font("Times New Roman", 20, FontStyle.Underline);
@@ -474,7 +481,7 @@ namespace teste2
                         if (lines[line].ToCharArray()[i-1] != '\\')
                             count++;
                     }
-                else if (lines[line].ToCharArray()[i] == '!')
+                else if (lines[line].ToCharArray()[i] == '!' && i< lines[line].Length-1)
                     {
                     if ((count%2) == 0 )
                         if (lines[line].ToCharArray()[i + 1] != '=')
