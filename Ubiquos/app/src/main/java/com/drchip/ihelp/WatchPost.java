@@ -1,6 +1,9 @@
 package com.drchip.ihelp;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,10 +15,21 @@ public class WatchPost extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     private MapView mMapView;
+    ImageView ivWPImage;
+    TextView tvTitle;
+    RatingBar rbWatchPost;
+    TextView tvReviewValue, tvDescription, tvContent, tvContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ivWPImage = findViewById(R.id.ivWPImage);
+        tvTitle = findViewById(R.id.tvTitle);
+        rbWatchPost = findViewById(R.id.rbWatchPost);
+        tvReviewValue = findViewById(R.id.tvReviewValue);
+        tvDescription = findViewById(R.id.tvDescription);
+        tvContent = findViewById(R.id.tvContent);
+        tvContact = findViewById(R.id.tvContact);
         setContentView(R.layout.activity_watch_post);
 
         // *** IMPORTANT ***
