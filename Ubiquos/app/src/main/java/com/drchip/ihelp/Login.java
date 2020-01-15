@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ public class Login extends AppCompatActivity {
     EditText etMail, etPassword;
     SignInButton signInButton;
     ProgressDialog progressDialog;
+    ImageView ivLogo;
     private FirebaseAuth mAuth;// ...
     private DatabaseReference mDatabase;
 
@@ -58,6 +60,7 @@ public class Login extends AppCompatActivity {
         etMail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         mAuth = FirebaseAuth.getInstance();
+        ivLogo = findViewById(R.id.ivLogo);
 
         progressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
 

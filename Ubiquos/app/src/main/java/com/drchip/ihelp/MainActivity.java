@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static final int PICK_IMAGE = 1;
-    ImageView ivPhoto;
+    ImageView ivPhoto, ivMenuLogo;
     DatabaseReference mDatabase;
     File localFile = null;
     private StorageReference mStorageRef;
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ivMenuLogo = findViewById(R.id.ivMenuLogo);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

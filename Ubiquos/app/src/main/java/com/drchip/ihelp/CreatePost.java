@@ -11,7 +11,7 @@ public class CreatePost extends AppCompatActivity {
 
     EditText etTitle, etDescription;
 
-    ImageView ivCreatePost, ivCancel, ivAddQRCode, ivAddImage, ivAddLocation, ivAddPhone, ivQRcode;
+    ImageView ivCreatePost, ivCancel, ivAddQRCode, ivAddImage, ivAddLocation, ivAddPhone, ivQRcode, ivImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class CreatePost extends AppCompatActivity {
         ivAddLocation = findViewById(R.id.ivAddLocation);
         ivAddPhone = findViewById(R.id.ivAddPhone);
         ivQRcode = findViewById(R.id.ivQRcode);
+        ivImage = findViewById(R.id.ivImage);
 
 
 

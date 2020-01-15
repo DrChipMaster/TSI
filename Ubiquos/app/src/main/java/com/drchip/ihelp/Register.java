@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -26,6 +27,7 @@ public class Register extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     ProgressDialog progressDialog;
+    ImageView ivLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class Register extends AppCompatActivity {
         etConfirmPassword = findViewById(R.id.etPasswordConfirm);
         btnCancel = findViewById(R.id.btnCancel);
         btnConfirm = findViewById(R.id.btnConfirm);
+        ivLogo = findViewById(R.id.ivLogo);
 
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
