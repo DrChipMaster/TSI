@@ -201,10 +201,10 @@ public class Login extends AppCompatActivity {
                                 final InputStream imageStream;
                                 imageStream = getContentResolver().openInputStream(imageUri);
                                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                                mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User("", ApplicationClass.currentUser.getEmail()));
+                                mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User("", ApplicationClass.currentUser.getEmail(), 0));
 
                             } catch (FileNotFoundException e) {
-                                mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User(ApplicationClass.currentUser.getDisplayName(), ApplicationClass.currentUser.getEmail()));
+                                mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User(ApplicationClass.currentUser.getDisplayName(), ApplicationClass.currentUser.getEmail(), 0));
 
                                 Toast.makeText(Login.this, "Error Login", Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();

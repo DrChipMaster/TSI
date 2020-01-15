@@ -11,8 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -20,9 +24,12 @@ import java.io.InputStream;
 public class CreatePost extends AppCompatActivity {
 
     EditText etTitle, etDescription;
+    String imagePath, contact, adress;
 
     public static final int PICK_IMAGE = 1;
     ImageView ivCreatePost, ivCancel, ivAddQRCode, ivAddImage, ivAddLocation, ivAddPhone, ivQRcode, ivImage;
+    DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,11 @@ public class CreatePost extends AppCompatActivity {
         ivAddPhone = findViewById(R.id.ivAddPhone);
         ivQRcode = findViewById(R.id.ivQRcode);
         ivImage = findViewById(R.id.ivImage);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        imagePath = "null";
+        contact = "null";
+        adress = "null";
 
         ivAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +58,14 @@ public class CreatePost extends AppCompatActivity {
                 photoPickerIntent.setType("image/*");
 
                 startActivityForResult(photoPickerIntent, PICK_IMAGE);
+            }
+        });
+
+        ivCreatePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
             }
         });
 
@@ -65,6 +84,8 @@ public class CreatePost extends AppCompatActivity {
                 message.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        contact = etPhoneNumber.getText().toString();
 
                         // etMessage.setText(etReleaseMessage.getText());
                     }
@@ -98,6 +119,7 @@ public class CreatePost extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        adress = etAdress.getText().toString();
                         // etMessage.setText(etReleaseMessage.getText());
                     }
                 });
@@ -134,6 +156,15 @@ public class CreatePost extends AppCompatActivity {
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 ivImage.setImageBitmap(selectedImage);
+
+
+                if (etTitle.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty()) {
+                    Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    Post newPost = new Post();
+                }
+
+                //imagePath =
 
                 // mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User(ApplicationClass.currentUser.getDisplayName(), ApplicationClass.currentUser.getEmail(), selectedImage));
 
