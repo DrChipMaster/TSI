@@ -26,6 +26,7 @@ public class CreatePost extends AppCompatActivity {
     EditText etTitle, etDescription;
     String imagePath, contact, adress;
 
+    public static final int PICK_IMAGE = 1;
     ImageView ivCreatePost, ivCancel, ivAddQRCode, ivAddImage, ivAddLocation, ivAddPhone, ivQRcode, ivImage;
     DatabaseReference mDatabase;
 
@@ -45,6 +46,45 @@ public class CreatePost extends AppCompatActivity {
         ivQRcode = findViewById(R.id.ivQRcode);
         ivImage = findViewById(R.id.ivImage);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        imagePath = "null";
+        contact = "null";
+        adress = "null";
+
+        ivAddImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+
+                startActivityForResult(photoPickerIntent, PICK_IMAGE);
+            }
+        });
+
+        ivCreatePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (etTitle.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty()) {
+                    Toast.makeText(CreatePost.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    Post newPost = new Post(ApplicationClass.mainuser.username, etDescription.getText().toString(), etTitle.getText().toString(), imagePath, contact, adress, "DATE", 0);
+                }
+
+            }
+        });
+
+        ivAddPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder message = new AlertDialog.Builder(CreatePost.this);
+                LayoutInflater inflater = getLayoutInflater();
+                final View dialogView = inflater.inflate(R.layout.phone_number, null);
+                final EditText etPhoneNumber = dialogView.findViewById(R.id.etPhoneNumber);
+
+                message.setView(dialogView);
+                message.setTitle("Contact");
+                message.setMessage("Enter your contact here!!");
 
                 message.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
@@ -122,12 +162,6 @@ public class CreatePost extends AppCompatActivity {
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 ivImage.setImageBitmap(selectedImage);
 
-
-                if (etTitle.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty()) {
-                    Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show();
-                } else {
-                    Post newPost = new Post(ApplicationClass.mainuser.username, );
-                }
 
                 //imagePath =
 

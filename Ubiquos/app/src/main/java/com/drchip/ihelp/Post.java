@@ -8,6 +8,7 @@ public class Post {
     public String ImagePath;
     public String Phone;
     public String Address;
+    public String Date;
     public int Likes;
 
 
@@ -39,7 +40,7 @@ public class Post {
         Likes = likes;
     }
 
-    public Post(String author, String description, String title, String imagePath, String phone, String address, int likes) {
+    public Post(String author, String description, String title, String imagePath, String phone, String address, String date, int likes) {
         Author = author;
         Description = description;
         Title = title;
@@ -47,6 +48,7 @@ public class Post {
         Phone = phone;
         Address = address;
         Likes = likes;
+        Date = date;
 
     }
 
