@@ -69,18 +69,18 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
         holder.itemView.setTag(posts.get(position));   // quando algem segura o cenas guarda o index!!!!
 
-        holder.tvName.setText(posts.get(position).getName());
-        holder.tvSurname.setText(posts.get(position).getSurname());
-
-        if(posts.get(position).getPreference().equals("bus"))
-        {
-            holder.ivPref.setImageResource(R.drawable.bus);
-        }
-        else
-        {
-            holder.ivPref.setImageResource(R.drawable.plane);
-
-        }
+//        holder.tvName.setText(posts.get(position).getName());
+//        holder.tvSurname.setText(posts.get(position).getSurname());
+//
+//        if(posts.get(position).getPreference().equals("bus"))
+//        {
+//            holder.ivPref.setImageResource(R.drawable.bus);
+//        }
+//        else
+//        {
+//            holder.ivPref.setImageResource(R.drawable.plane);
+//
+//        }
     }
 
     @Override
