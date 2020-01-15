@@ -33,7 +33,7 @@ public class CreatePost extends AppCompatActivity {
         ivAddQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new ImageDownloaderTask(ivQRcode).execute("https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + "pila");
             }
         });
     }
