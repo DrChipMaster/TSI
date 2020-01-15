@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -25,12 +25,12 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
+    private DatabaseReference mDatabase;
     RecyclerView recyclerView;
     RecyclerView.Adapter myAdapter;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<NetworkInfo> networkInfos;
     NetworkInfo networkInfo;
-    private DatabaseReference mDatabase;
 
     private HomeViewModel homeViewModel;
 
@@ -51,9 +51,11 @@ public class HomeFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
+
+
         networkInfo =
 
-                String[]macs = info.getBssidList_toString();
+        String[] macs = info.getBssidList_toString();
 
         for (String mac : macs) {
             DatabaseReference aux = mDatabase.child("Mac").child(mac).push();
@@ -62,20 +64,23 @@ public class HomeFragment extends Fragment {
         }
 
 
+
         networkInfos = new ArrayList<>();
         DatabaseReference databaseMacPosts = mDatabase.child("Mac").child(mac).orderByChild("value");
         databaseMacPosts.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshots) {
-                for (DataSnapshot dataSnap : dataSnapshots.getChildren()) {
+                for(DataSnapshot dataSnap: dataSnapshots.getChildren()){
                     boolean exits = false;
-                    for ()
-                        for (int i = 0; i < networkInfos.size(); i++) {
-                            if (networkInfos.get(i).date.equals(dataSnap.getValue(NetworkInfo.class).date))
-                                exits = true;
+                    for()
+                    for(int i = 0; i < networkInfos.size(); i++ )
+                    {
+                        if(networkInfos.get(i).date.equals(dataSnap.getValue(NetworkInfo.class).date))
+                            exits= true;
 
-                        }
-                    if (!exits) {
+                    }
+                    if(!exits)
+                    {
                         networkInfos.add(dataSnap.getValue(NetworkInfo.class));
                     }
                 }

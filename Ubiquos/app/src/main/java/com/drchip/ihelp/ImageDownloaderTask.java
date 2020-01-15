@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -46,9 +47,9 @@ public class ImageDownloaderTask extends AsyncTask<String, Void, Bitmap> {
                 //myDir.mkdirs();
                 String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
                 File myDir = new File(root + "/iHelp");
-                String fname = "Image-" + "3" + ".jpg";
-                File file = new File(myDir, fname);
-                if (file.exists()) file.delete();
+                String fname = "Image-"+ "3" +".jpg";
+                File file = new File (myDir, fname);
+                if (file.exists ()) file.delete ();
                 try {
                     FileOutputStream out = new FileOutputStream(file);
                     x.compress(Bitmap.CompressFormat.JPEG, 90, out);
