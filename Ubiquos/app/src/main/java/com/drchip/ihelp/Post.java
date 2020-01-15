@@ -2,6 +2,7 @@ package com.drchip.ihelp;
 
 public class Post {
 
+    public long PostId;
     public String Author;
     public String Description;
     public String Title;
@@ -16,14 +17,16 @@ public class Post {
 
     }
 
-    public Post(String author, String description, String title) {
+    public Post(long postId, String author, String description, String title) {
+        PostId = postId;
         Author = author;
         Description = description;
         Title = title;
         Likes = 0;
     }
 
-    public Post(String author, String description, String title, String imagePath, int likes) {
+    public Post(long postId, String author, String description, String title, String imagePath, int likes) {
+        PostId = postId;
         Author = author;
         Description = description;
         Title = title;
@@ -31,7 +34,8 @@ public class Post {
         Likes = likes;
     }
 
-    public Post(String author, String description, String title, String imagePath, String phone, int likes) {
+    public Post(long postId, String author, String description, String title, String imagePath, String phone, int likes) {
+        PostId = postId;
         Author = author;
         Description = description;
         Title = title;
@@ -40,7 +44,8 @@ public class Post {
         Likes = likes;
     }
 
-    public Post(String author, String description, String title, String imagePath, String phone, String address, String date, int likes) {
+    public Post(long postId, String author, String description, String title, String imagePath, String phone, String address, String date, int likes) {
+        PostId = postId;
         Author = author;
         Description = description;
         Title = title;

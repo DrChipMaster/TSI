@@ -13,13 +13,24 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class CreatePost extends AppCompatActivity {
 
@@ -29,7 +40,13 @@ public class CreatePost extends AppCompatActivity {
     public static final int PICK_IMAGE = 1;
     ImageView ivCreatePost, ivCancel, ivAddQRCode, ivAddImage, ivAddLocation, ivAddPhone, ivQRcode, ivImage;
     DatabaseReference mDatabase;
-
+    long postid;
+    String formattedDate;
+    boolean image;
+    Uri imageUri;
+    InputStream imageStream;
+    Bitmap selectedImage;
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +78,8 @@ public class CreatePost extends AppCompatActivity {
             }
         });
 
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
         ivCreatePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +87,52 @@ public class CreatePost extends AppCompatActivity {
                 if (etTitle.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty()) {
                     Toast.makeText(CreatePost.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    Post newPost = new Post(ApplicationClass.mainuser.username, etDescription.getText().toString(), etTitle.getText().toString(), imagePath, contact, adress, "DATE", 0);
+                    Calendar c = Calendar.getInstance();
+                    SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy HH:mm");
+                    formattedDate = df.format(c.getTime());
+                    DatabaseReference ref = mDatabase.child("LastPost");
+
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            postid = dataSnapshot.getValue(long.class);
+                            postid++;
+                            String id = postid + "";
+                            if (image) imagePath = id;
+                            Post newPost = new Post(postid, ApplicationClass.mainuser.username, etDescription.getText().toString(), etTitle.getText().toString(), imagePath, contact, adress, formattedDate, 0);
+                            DatabaseReference trans = mDatabase.child("Posts").child(id);
+                            DatabaseReference ref = mDatabase.child("LastPost");
+                            ref.setValue(postid);
+
+
+                            trans.setValue(newPost);
+                            StorageReference riversRef = mStorageRef.child("post/" + postid + "/image.jpg");
+                            riversRef.putFile(imageUri)
+                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            // Get a URL to the uploaded content
+                                            Toast.makeText(CreatePost.this, "Done", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                            // Handle unsuccessful uploads
+                                            // ...
+                                        }
+                                    });
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
                 }
 
             }
@@ -157,13 +221,15 @@ public class CreatePost extends AppCompatActivity {
                 return;
             }
             try {
-                final Uri imageUri = data.getData();
-                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                imageUri = data.getData();
+                imageStream = getContentResolver().openInputStream(imageUri);
+                selectedImage = BitmapFactory.decodeStream(imageStream);
                 ivImage.setImageBitmap(selectedImage);
 
 
-                //imagePath =
+                image = true;
+
+
 
                 // mDatabase.child("users").child(ApplicationClass.currentUser.getUid()).setValue(new User(ApplicationClass.currentUser.getDisplayName(), ApplicationClass.currentUser.getEmail(), selectedImage));
 
