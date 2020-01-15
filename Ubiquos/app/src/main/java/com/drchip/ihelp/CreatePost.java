@@ -126,7 +126,7 @@ public class CreatePost extends AppCompatActivity {
                 if (etTitle.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty()) {
                     Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    Post newPost = new Post();
+                    Post newPost = new Post(ApplicationClass.mainuser.username, );
                 }
 
                 //imagePath =
