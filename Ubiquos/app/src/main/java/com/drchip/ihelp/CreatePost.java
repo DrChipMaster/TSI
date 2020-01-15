@@ -1,6 +1,7 @@
 package com.drchip.ihelp;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,8 +17,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,8 +48,12 @@ public class CreatePost extends AppCompatActivity {
     boolean image;
     Uri imageUri;
     InputStream imageStream;
+
     Bitmap selectedImage;
     private StorageReference mStorageRef;
+    boolean finished;
+    ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,8 @@ public class CreatePost extends AppCompatActivity {
         contact = "null";
         adress = "null";
 
+        progressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
+
         ivAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,25 +87,46 @@ public class CreatePost extends AppCompatActivity {
             }
         });
 
+
+        DatabaseReference ref = mDatabase.child("LastPost");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                postid = dataSnapshot.getValue(long.class);
+                postid++;
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         ivCreatePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finished = false;
 
                 if (etTitle.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty()) {
                     Toast.makeText(CreatePost.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    Calendar c = Calendar.getInstance();
-                    SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy HH:mm");
-                    formattedDate = df.format(c.getTime());
-                    DatabaseReference ref = mDatabase.child("LastPost");
 
-                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            postid = dataSnapshot.getValue(long.class);
-                            postid++;
+                    progressDialog.setTitle("Posting post");
+                    progressDialog.setMessage("Connecting with server...please wait");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                    Calendar c = Calendar.getInstance();
+                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                    formattedDate = df.format(c.getTime());
+
+
                             String id = postid + "";
                             if (image) imagePath = id;
                             Post newPost = new Post(postid, ApplicationClass.mainuser.username, etDescription.getText().toString(), etTitle.getText().toString(), imagePath, contact, adress, formattedDate, 0);
@@ -106,30 +136,55 @@ public class CreatePost extends AppCompatActivity {
 
 
                             trans.setValue(newPost);
-                            StorageReference riversRef = mStorageRef.child("post/" + postid + "/image.jpg");
-                            riversRef.putFile(imageUri)
-                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                            // Get a URL to the uploaded content
-                                            Toast.makeText(CreatePost.this, "Done", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception exception) {
-                                            // Handle unsuccessful uploads
-                                            // ...
-                                        }
-                                    });
+                    if (image) {
+                        StorageReference riversRef = mStorageRef.child("post/" + postid + "/image.jpg");
+                        riversRef.putFile(imageUri)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        // Get a URL to the uploaded content
+                                        Toast.makeText(CreatePost.this, "Done", Toast.LENGTH_SHORT).show();
+                                        if (finished) {
+                                            progressDialog.hide();
+                                            startActivity(new Intent(CreatePost.this, MainActivity.class));
+                                            CreatePost.this.finish();
+                                        } else finished = true;
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        // Handle unsuccessful uploads
+                                        // ...
+                                    }
+                                });
+                    }
+                    NetworkInfo info = new NetworkInfo(CreatePost.this);
 
-                        }
+                    String[] macs = info.getBssidList_toString();
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                    for (String mac : macs) {
+                        DatabaseReference aux = mDatabase.child("Mac").child(mac).push();
+                        aux.setValue(postid).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (finished) {
+                                    progressDialog.hide();
+                                    startActivity(new Intent(CreatePost.this, MainActivity.class));
+                                    CreatePost.this.finish();
+                                } else finished = true;
+                            }
+                        });
 
-                        }
-                    });
+                    }
+
+
+
+
+
+
+
+
 
 
 
@@ -207,7 +262,7 @@ public class CreatePost extends AppCompatActivity {
         ivAddQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ImageDownloaderTask(ivQRcode).execute("https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + "pila");
+                new ImageDownloaderTask(ivQRcode).execute("https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + postid);
             }
         });
     }

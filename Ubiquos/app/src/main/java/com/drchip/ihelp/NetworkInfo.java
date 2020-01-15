@@ -50,10 +50,10 @@ class NetworkInfo {
     String[] getBssidList_toString()
     {
         int nBssid;
-        String bssidList[] = new String[0];
+        String[] bssidList = new String[net.bssidList.size()];
 
         for (nBssid = 0; nBssid < net.bssidList.size(); nBssid++) {
-            bssidList[nBssid] = net.bssidList.get(nBssid).BSSID;
+            bssidList[nBssid] = net.bssidList.get(nBssid).BSSID.replace(':', '_');
         }
         return bssidList;
     }
