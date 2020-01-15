@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+//import javax.swing.border.TitledBorder;
+
 public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private ArrayList<Post> posts;
@@ -69,6 +71,8 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
         holder.itemView.setTag(posts.get(position));   // quando algem segura o cenas guarda o index!!!!
 
+        //holder.tvTitle.setText(posts.Title);
+       // posts.get(position).Title = toString(holder.tvTitle.getText());
 //        holder.tvName.setText(posts.get(position).getName());
 //        holder.tvSurname.setText(posts.get(position).getSurname());
 //
