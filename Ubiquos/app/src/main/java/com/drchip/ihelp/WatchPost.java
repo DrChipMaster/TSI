@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class WatchPost extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -67,7 +65,7 @@ public class WatchPost extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap map) {
         //map.addMarker(new MarkerOptions().position(new LatLng(41.452532, -8.289260)).title("Marker"));
-        map.addMarker(new MarkerOptions().position(new LatLng()))
+        // map.addMarker(new MarkerOptions().position(new LatLng()));
     }
 
     @Override

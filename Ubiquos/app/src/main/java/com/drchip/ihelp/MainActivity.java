@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, WatchPost.class));
+                startActivity(new Intent(MainActivity.this, CreatePost.class));
+                MainActivity.this.finish();
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
