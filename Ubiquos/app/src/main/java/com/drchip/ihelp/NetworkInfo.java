@@ -9,10 +9,10 @@ import java.util.List;
 
 import static android.content.Context.WIFI_SERVICE;
 
-class NetworkInfo {
+public class NetworkInfo {
     Network net =   new Network();
 
-    NetworkInfo(Context context)
+    public NetworkInfo(Context context)
     {
         net.wifiManager =   (WifiManager)   context.getSystemService(WIFI_SERVICE);
         net.wifiInfo    =   net.wifiManager.getConnectionInfo();
@@ -47,7 +47,7 @@ class NetworkInfo {
         return info;
     }
 
-    String[] getBssidList_toString()
+    public String[] getBssidList_toString()
     {
         int nBssid;
         String[] bssidList = new String[net.bssidList.size()];

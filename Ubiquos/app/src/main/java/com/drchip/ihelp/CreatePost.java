@@ -129,7 +129,7 @@ public class CreatePost extends AppCompatActivity {
 
                             String id = postid + "";
                             if (image) imagePath = id;
-                            Post newPost = new Post(postid, ApplicationClass.mainuser.username, etDescription.getText().toString(), etTitle.getText().toString(), imagePath, contact, adress, formattedDate, 0);
+                    Post newPost = new Post(postid, ApplicationClass.currentUser.getUid(), etDescription.getText().toString(), etTitle.getText().toString(), imagePath, contact, adress, formattedDate, 0);
                             DatabaseReference trans = mDatabase.child("Posts").child(id);
                             DatabaseReference ref = mDatabase.child("LastPost");
                             ref.setValue(postid);
@@ -162,6 +162,9 @@ public class CreatePost extends AppCompatActivity {
                     NetworkInfo info = new NetworkInfo(CreatePost.this);
 
                     String[] macs = info.getBssidList_toString();
+
+                    DatabaseReference user = mDatabase.child("UserPosts").child(ApplicationClass.currentUser.getUid()).push();
+                    user.setValue(id);
 
                     for (String mac : macs) {
                         DatabaseReference aux = mDatabase.child("Mac").child(mac).push();

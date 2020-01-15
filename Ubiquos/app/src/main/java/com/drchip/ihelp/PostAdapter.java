@@ -1,6 +1,7 @@
 package com.drchip.ihelp;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 //import javax.swing.border.TitledBorder;
@@ -24,14 +40,150 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         void onItemClicked(int index);
     }
 
-    public  PostAdapter(Context context, ArrayList<Post> list)
-    {
-        posts=list;
-        activity=(ItemClicked)context;
+    File localFile = null;
+    File fileImage = null;
+
+    @NonNull
+    @Override
+    public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_post,parent,false);
+
+        return new ViewHolder(v);         //muito importante!!!!para linkar com o ivPref por exemplo
     }
 
-    public  class  ViewHolder extends RecyclerView.ViewHolder
-    {
+    DatabaseReference mDatabase1;
+    private StorageReference mStorageRef;
+
+    public PostAdapter(Context context, ArrayList<Post> list) {
+        posts = list;
+        //activity=(ItemClicked)context;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final PostAdapter.ViewHolder holder, final int position) {
+        holder.itemView.setTag(posts.get(position));   // quando algem segura o cenas guarda o index!!!!
+
+
+        mDatabase1 = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = mDatabase.child("users").child(posts.get(position).Author);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user;
+                user = dataSnapshot.getValue(User.class);
+                holder.tvName.setText(user.username);
+                mStorageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference profile = mStorageRef.child("images/" + posts.get(position).Author + "/profile.jpg");
+
+                try {
+                    localFile = File.createTempFile("profile", "jpg");
+                    profile.getFile(localFile)
+                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    final Uri imageUri = Uri.parse(localFile.toString());
+
+                                    try {
+                                        Picasso.get().load(String.valueOf(localFile.toURL())).into(holder.ivProfilePicture);
+
+                                    } catch (MalformedURLException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle failed download
+                            // ...
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        if (!posts.get(position).ImagePath.equals("null")) {
+            mStorageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference profile = mStorageRef.child("post/" + posts.get(position).ImagePath + "" + "/image.jpg");
+
+            try {
+                fileImage = File.createTempFile("image", "jpg");
+                profile.getFile(fileImage)
+                        .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                final Uri imageUri = Uri.parse(fileImage.toString());
+
+                                try {
+                                    Picasso.get().load(String.valueOf(fileImage.toURL())).into(holder.ivPostImage);
+
+                                } catch (MalformedURLException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle failed download
+                        // ...
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        holder.ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                posts.get(position).Likes++;
+                DatabaseReference trans = mDatabase1.child("Posts").child(posts.get(position).PostId + "");
+                trans.setValue(posts.get(position));
+                DatabaseReference likes = mDatabase1.child("Users_likes").child(ApplicationClass.currentUser.getUid()).child(posts.get(position).PostId + "").push();
+                likes.setValue(posts.get(position));
+
+
+            }
+        });
+        holder.tvTitle.setText(posts.get(position).Title);
+        holder.tvDate.setText(posts.get(position).Date);
+        holder.tvDescription.setText(posts.get(position).Description);
+        holder.tvLikes.setText(posts.get(position).Likes + "");
+        holder.tvComments.setText(0 + "");
+
+
+
+        //holder.tvTitle.setText(posts.Title);
+       // posts.get(position).Title = toString(holder.tvTitle.getText());
+//        holder.tvName.setText(posts.get(position).getName());
+//        holder.tvSurname.setText(posts.get(position).getSurname());
+//
+//        if(posts.get(position).getPreference().equals("bus"))
+//        {
+//            holder.ivPref.setImageResource(R.drawable.bus);
+//        }
+//        else
+//        {
+//            holder.ivPref.setImageResource(R.drawable.plane);
+//
+//        }
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivProfilePicture, ivPostImage, ivShare, ivLike, ivComment;
         TextView tvTitle, tvName, tvDate, tvDescription, tvLikes, tvComments;
 
@@ -52,39 +204,11 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
 
-                    activity.onItemClicked(posts.indexOf((Post) view.getTag()));  // como obter o index do item clicado!!
+                    //   activity.onItemClicked(posts.indexOf((Post) view.getTag()));  // como obter o index do item clicado!!
 
                 }
             });
         }
-    }
-
-    @NonNull
-    @Override
-    public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_post,parent,false);
-
-        return new ViewHolder(v);         //muito importante!!!!para linkar com o ivPref por exemplo
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
-        holder.itemView.setTag(posts.get(position));   // quando algem segura o cenas guarda o index!!!!
-
-        //holder.tvTitle.setText(posts.Title);
-       // posts.get(position).Title = toString(holder.tvTitle.getText());
-//        holder.tvName.setText(posts.get(position).getName());
-//        holder.tvSurname.setText(posts.get(position).getSurname());
-//
-//        if(posts.get(position).getPreference().equals("bus"))
-//        {
-//            holder.ivPref.setImageResource(R.drawable.bus);
-//        }
-//        else
-//        {
-//            holder.ivPref.setImageResource(R.drawable.plane);
-//
-//        }
     }
 
     @Override
