@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+//import javax.swing.border.TitledBorder;
+
 public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private ArrayList<Post> posts;
@@ -26,6 +28,34 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     {
         posts=list;
         activity=(ItemClicked)context;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
+        holder.itemView.setTag(posts.get(position));   // quando algem segura o cenas guarda o index!!!!
+
+        //holder.tvTitle.setText(posts.Title);
+        // posts.get(position).Title = toString(holder.tvTitle.getText());
+//        holder.tvName.setText(posts.get(position).getName());
+//        holder.tvSurname.setText(posts.get(position).getSurname());
+//
+//        if(posts.get(position).getPreference().equals("bus"))
+//        {
+//            holder.ivPref.setImageResource(R.drawable.bus);
+//        }
+//        else
+//        {
+//            holder.ivPref.setImageResource(R.drawable.plane);
+//
+//        }
+    }
+
+    @NonNull
+    @Override
+    public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_post, parent, false);
+
+        return new ViewHolder(v);         //muito importante!!!!para linkar com o ivPref por exemplo
     }
 
     public  class  ViewHolder extends RecyclerView.ViewHolder
@@ -50,37 +80,11 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
 
-                    activity.onItemClicked(posts.indexOf((Post) view.getTag()));  // como obter o index do item clicado!!
+                    activity.onItemClicked(posts.indexOf(view.getTag()));  // como obter o index do item clicado!!
 
                 }
             });
         }
-    }
-
-    @NonNull
-    @Override
-    public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_post,parent,false);
-
-        return new ViewHolder(v);         //muito importante!!!!para linkar com o ivPref por exemplo
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
-        holder.itemView.setTag(posts.get(position));   // quando algem segura o cenas guarda o index!!!!
-
-//        holder.tvName.setText(posts.get(position).getName());
-//        holder.tvSurname.setText(posts.get(position).getSurname());
-//
-//        if(posts.get(position).getPreference().equals("bus"))
-//        {
-//            holder.ivPref.setImageResource(R.drawable.bus);
-//        }
-//        else
-//        {
-//            holder.ivPref.setImageResource(R.drawable.plane);
-//
-//        }
     }
 
     @Override
