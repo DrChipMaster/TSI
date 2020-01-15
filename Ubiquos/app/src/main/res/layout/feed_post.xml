@@ -31,7 +31,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="1dp"
                 android:gravity="center_horizontal"
-                android:text="Boas-vindas!"
+                android:text="Welcome!"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="30sp" />
 
@@ -88,7 +88,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
                 android:layout_weight="1"
-                android:text="Olá"
+                android:text="Hello"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="22sp" />
 
@@ -104,6 +104,11 @@
                 android:id="@+id/ivPostImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/back_create_post"
                 tools:srcCompat="@tools:sample/avatars[3]" />
 
             <ImageView
