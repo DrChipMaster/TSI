@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                             //final Uri imageUri = finalLocalFile.toURI();
                             try {
                                 Picasso.get().load(String.valueOf(localFile.toURL())).into(ivPhoto);
+
                                 //Bitmap ola = Picasso.load(String.valueOf(localFile.toURL())).get();
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
