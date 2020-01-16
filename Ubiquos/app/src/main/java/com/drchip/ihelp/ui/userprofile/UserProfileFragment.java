@@ -203,7 +203,7 @@ public class UserProfileFragment extends Fragment {
 
         /* LIST USER LIKED POSTS */
         myLikedPosts = new ArrayList<>();
-        Query myLikedPostsQuery = mDatabase.child("User_likes").child(ApplicationClass.currentUser.getUid()).orderByChild("value");
+        Query myLikedPostsQuery = mDatabase.child("Users_likes").child(ApplicationClass.currentUser.getUid()).orderByChild("value");
         likedPostsID = new ArrayList<>();
 
         myLikedPostsQuery.addValueEventListener(new ValueEventListener() {
