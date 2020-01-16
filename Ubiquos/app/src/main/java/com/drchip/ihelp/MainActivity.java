@@ -52,9 +52,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.security.Permission;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PostAdapter.ItemClicked {
 
     PermissionManager permissionManager;
 
@@ -254,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         permissionManager.checkResult(requestCode,permissions, grantResults);
     }
 
@@ -294,5 +293,14 @@ public class MainActivity extends AppCompatActivity {
             }
             //TODO: action
         }
+    }
+
+
+    @Override
+    public void onItemClicked(Post postClicked) {
+
+        //Toast.makeText(this, "Post clicked"+postClicked.PostId, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "Surname"+people.get(index).getSurname(), Toast.LENGTH_SHORT).show();
+
     }
 }

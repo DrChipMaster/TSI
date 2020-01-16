@@ -35,9 +35,10 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private ArrayList<Post> posts;
     ItemClicked activity;
 
-    public interface ItemClicked  // Interface serve para passar eventos e assim entre classes, ou seja criar uma interface entre classes!
-    {
-        void onItemClicked(int index);
+    public PostAdapter(Context context, ArrayList<Post> list) {
+        files = new ArrayList<>();
+        posts = list;
+        activity = (ItemClicked) context;
     }
 
 
@@ -54,10 +55,9 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     ArrayList<File> files;
 
-    public PostAdapter(Context context, ArrayList<Post> list) {
-        files = new ArrayList<>();
-        posts = list;
-        //activity=(ItemClicked)context;
+    public interface ItemClicked  // Interface serve para passar eventos e assim entre classes, ou seja criar uma interface entre classes!
+    {
+        void onItemClicked(Post postClicked);
     }
 
     @Override
@@ -219,7 +219,7 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
 
-                    //   activity.onItemClicked(posts.indexOf((Post) view.getTag()));  // como obter o index do item clicado!!
+                    activity.onItemClicked((Post) view.getTag());  // como obter o index do item clicado!!
 
                 }
             });
