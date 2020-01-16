@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "543245719833-gm8g3j8e37cpaie5qrep8dh3v65f1sob.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.drchip.ihelp",
+            "certificate_hash": "d336ea8c1a87b976321af5b1a64bfbe9377c43fa"
+          }
+        },
+        {
           "client_id": "543245719833-v8bq77fv2po651ms6kajosno6100bmp0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
