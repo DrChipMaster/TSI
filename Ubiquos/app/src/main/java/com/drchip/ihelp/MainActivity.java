@@ -188,6 +188,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,Login.class));
                 MainActivity.this.finish();
                 break;
+            case R.id.scanQR:
+                startActivity(new Intent(MainActivity.this, ScanCodeActivity.class));
+
+                break;
 
 
         }
