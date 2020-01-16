@@ -49,7 +49,8 @@ public class ImageDownloaderTask extends AsyncTask<String, Void, Bitmap> {
                 File myDir = new File(root + "/iHelp");
                 String fname = "Image-"+ "3" +".jpg";
                 File file = new File (myDir, fname);
-                if (file.exists ()) file.delete ();
+                if (file.exists ())
+                    file.delete ();
                 try {
                     FileOutputStream out = new FileOutputStream(file);
                     x.compress(Bitmap.CompressFormat.JPEG, 90, out);
