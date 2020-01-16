@@ -260,7 +260,7 @@ public class UserProfileFragment extends Fragment {
             }
         });
         likedPostsAdapter = new PostAdapter(getContext(), myLikedPosts);
-        rvLikedPublications.setAdapter(myAdapter);
+        rvLikedPublications.setAdapter(likedPostsAdapter);
 
 
 
