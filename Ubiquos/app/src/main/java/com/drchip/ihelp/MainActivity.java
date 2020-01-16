@@ -61,16 +61,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fabCreatePost = findViewById(R.id.fabCreatePost);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, Login.class));
-                MainActivity.this.finish();
 
-                return false;
-            }
-        });
         fabCreatePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,13 +175,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
 
-            case R.id.logout:
-                startActivity(new Intent(MainActivity.this,Login.class));
+            case R.id.scanola: {
+                startActivity(new Intent(getApplicationContext(), ScanCodeActivity.class));
                 MainActivity.this.finish();
-                break;
-            case R.id.scanQR:
-                startActivity(new Intent(MainActivity.this, ScanCodeActivity.class));
 
+            }
+                break;
+            case R.id.logout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, Login.class));
+                MainActivity.this.finish();
                 break;
 
 
@@ -204,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
