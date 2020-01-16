@@ -16,9 +16,17 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.drchip.ihelp.ApplicationClass;
+import com.drchip.ihelp.NetworkInfo;
+import com.drchip.ihelp.Post;
+import com.drchip.ihelp.PostAdapter;
 import com.drchip.ihelp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -27,6 +35,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 public class UserProfileFragment extends Fragment {
     private UserProfileViewModel userProfileViewModel;
@@ -105,6 +114,90 @@ public class UserProfileFragment extends Fragment {
                 rvLikedPublications.setVisibility(View.GONE);
             }
         });
+
+
+
+
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
+//
+//        Feed = new ArrayList<>();
+//
+//        NetworkInfo info = new NetworkInfo(getContext());
+//
+//        String[] macs = info.getBssidList_toString();
+//
+//        for (String mac : macs) {
+//
+//            Query myTopPostsQuery = mDatabase.child("Mac").child(mac).orderByChild("value");
+//            postsID = new ArrayList<>();
+//
+//            myTopPostsQuery.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshots) {
+//                    for (DataSnapshot dataSnap : dataSnapshots.getChildren()) {
+//                        boolean exits = false;
+//
+//                        for (int i = 0; i < postsID.size(); i++) {
+//                            long aux = dataSnap.getValue(long.class);
+//                            if (postsID.get(i) == aux) {
+//                                exits = true;
+//                                break;
+//                            }
+//
+//                        }
+//                        if (!exits) {
+//                            postsID.add(dataSnap.getValue(long.class));
+//                        }
+//                    }
+//                    for (long postID : postsID) {
+//                        Query myTopPostsQuery = mDatabase.child("Posts").child(postID + "");
+//                        myTopPostsQuery.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                boolean exits = false;
+//                                Post aux = dataSnapshot.getValue(Post.class);
+//                                for (int i = 0; i < Feed.size(); i++) {
+//
+//                                    if (Feed.get(i).PostId == aux.PostId) {
+//                                        Feed.set(i, aux);
+//                                        exits = true;
+//                                    }
+//
+//                                }
+//                                if (!exits)
+//                                    Feed.add(aux);
+//                                myAdapter.notifyDataSetChanged();
+//
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+//
+//
+//                    }
+//
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
+//
+//
+//        }
+//
+//        myAdapter = new PostAdapter(getContext(), Feed);
+//        recyclerView.setAdapter(myAdapter);
+
+
+
+
 
         return root;
     }
