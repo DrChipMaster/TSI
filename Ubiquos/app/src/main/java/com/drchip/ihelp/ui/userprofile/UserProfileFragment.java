@@ -206,7 +206,7 @@ public class UserProfileFragment extends Fragment {
         Query myLikedPostsQuery = mDatabase.child("User_likes").child(ApplicationClass.currentUser.getUid()).orderByChild("value");
         likedPostsID = new ArrayList<>();
 
-        myTopPostsQuery.addValueEventListener(new ValueEventListener() {
+        myLikedPostsQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshots) {
                 for (DataSnapshot dataSnap : dataSnapshots.getChildren()) {
