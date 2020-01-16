@@ -72,7 +72,7 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         mDatabase1 = FirebaseDatabase.getInstance().getReference();
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         DatabaseReference ref = mDatabase.child("users").child(posts.get(position).Author);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -166,36 +166,40 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             holder.ivProfilePicture.setVisibility(View.VISIBLE);
         }
 
-        /* store liked posts */
-        Query myLikedPostsQuery = mDatabase.child("Users_likes").child(ApplicationClass.currentUser.getUid()).orderByChild("value");
+
         likedPostsID = new ArrayList<>();
-        myLikedPosts = new ArrayList<>();
-
-        myLikedPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshots) {
-                for (DataSnapshot dataSnap : dataSnapshots.getChildren()) {
-                    likedPostsID.add(dataSnap.getValue(long.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
         holder.ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                /* store liked posts */
+                Query myLikedPostsQuery = mDatabase.child("Users_likes").child(ApplicationClass.currentUser.getUid()).orderByChild("value");
+
+                //myLikedPosts = new ArrayList<>();
+
+                myLikedPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshots) {
+                        for (DataSnapshot dataSnap : dataSnapshots.getChildren()) {
+                            likedPostsID.add(dataSnap.getValue(long.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
                 DatabaseReference trans = mDatabase1.child("Posts").child(posts.get(position).PostId + "");
                 /* if post not liked yet then like and store value */
-                if(!likedPostsID.contains(trans))
+                DatabaseReference likes = mDatabase1.child("Users_likes").child(ApplicationClass.currentUser.getUid());
+                if(!likedPostsID.contains(likes))
                 {
                     posts.get(position).Likes++;
                     trans.setValue(posts.get(position));
-                    DatabaseReference likes = mDatabase1.child("Users_likes").child(ApplicationClass.currentUser.getUid()).push();
-                    likes.setValue(posts.get(position).PostId);
+                    likes.push().setValue(posts.get(position).PostId);
                 }
             }
         });

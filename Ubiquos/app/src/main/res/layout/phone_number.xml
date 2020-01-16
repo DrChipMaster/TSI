@@ -13,5 +13,5 @@
         android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:inputType="phone"
-        android:textColor="@color/primaryTextColor" />
+        android:textColor="@android:color/black" />
 </LinearLayout>
