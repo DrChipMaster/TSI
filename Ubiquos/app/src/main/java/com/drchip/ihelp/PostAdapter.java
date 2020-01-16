@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,6 +35,9 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private ArrayList<Post> posts;
     ItemClicked activity;
+
+    ArrayList<Long> likedPostsID;
+    ArrayList<Post> myLikedPosts;
 
     public PostAdapter(Context context, ArrayList<Post> list) {
         files = new ArrayList<>();
@@ -161,16 +165,38 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             holder.ivUpperLine.setVisibility(View.GONE);
             holder.ivProfilePicture.setVisibility(View.VISIBLE);
         }
+
+        /* store liked posts */
+        Query myLikedPostsQuery = mDatabase.child("Users_likes").child(ApplicationClass.currentUser.getUid()).orderByChild("value");
+        likedPostsID = new ArrayList<>();
+        myLikedPosts = new ArrayList<>();
+
+        myLikedPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshots) {
+                for (DataSnapshot dataSnap : dataSnapshots.getChildren()) {
+                    likedPostsID.add(dataSnap.getValue(long.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         holder.ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                posts.get(position).Likes++;
                 DatabaseReference trans = mDatabase1.child("Posts").child(posts.get(position).PostId + "");
-                trans.setValue(posts.get(position));
-                DatabaseReference likes = mDatabase1.child("Users_likes").child(ApplicationClass.currentUser.getUid()).push();
-                likes.setValue(posts.get(position).PostId);
-
-
+                /* if post not liked yet then like and store value */
+                if(!likedPostsID.contains(trans))
+                {
+                    posts.get(position).Likes++;
+                    trans.setValue(posts.get(position));
+                    DatabaseReference likes = mDatabase1.child("Users_likes").child(ApplicationClass.currentUser.getUid()).push();
+                    likes.setValue(posts.get(position).PostId);
+                }
             }
         });
         holder.tvTitle.setText(posts.get(position).Title);
