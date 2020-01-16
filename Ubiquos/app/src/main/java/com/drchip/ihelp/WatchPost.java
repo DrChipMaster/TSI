@@ -23,14 +23,14 @@ public class WatchPost extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_watch_post);
         ivWPImage = findViewById(R.id.ivWPImage);
-        tvTitle = findViewById(R.id.tvTitle);
+        tvTitle = findViewById(R.id.tvTitle1);
         rbWatchPost = findViewById(R.id.rbWatchPost);
         tvReviewValue = findViewById(R.id.tvReviewValue);
         tvDescription = findViewById(R.id.tvDescription);
         tvContent = findViewById(R.id.tvContent);
         tvContact = findViewById(R.id.tvContact);
-        setContentView(R.layout.activity_watch_post);
 
         // *** IMPORTANT ***
         // MapView requires that the Bundle you pass contain _ONLY_ MapView SDK
@@ -41,6 +41,12 @@ public class WatchPost extends AppCompatActivity implements OnMapReadyCallback {
         }
         mMapView = findViewById(R.id.mapView);
         mMapView.onCreate(mapViewBundle);
+
+        //
+        tvTitle.setText(ApplicationClass.PostClicked.Title);
+        tvDescription.setText(ApplicationClass.PostClicked.Description);
+        //tvContent.setText(ApplicationClass.PostClicked.);
+
 
         mMapView.getMapAsync(this);
     }
