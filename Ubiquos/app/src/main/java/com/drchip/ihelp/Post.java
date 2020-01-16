@@ -1,5 +1,7 @@
 package com.drchip.ihelp;
 
+import android.location.Location;
+
 public class Post {
 
     public long PostId;
@@ -13,7 +15,8 @@ public class Post {
     public int Likes;
     public int Rating;
     public int Reviews;
-
+    public Double Latitude;
+    public Double Longitude;
 
     public Post() {
 
@@ -52,7 +55,7 @@ public class Post {
         Reviews = 0;
     }
 
-    public Post(long postId, String author, String description, String title, String imagePath, String phone, String address, String date, int likes) {
+    public Post(long postId, String author, String description, String title, String imagePath, String phone, String address, String date, int likes, Location local) {
         PostId = postId;
         Author = author;
         Description = description;
@@ -64,6 +67,8 @@ public class Post {
         Date = date;
         Rating = 0;
         Reviews = 0;
+        Latitude = local.getLatitude();
+        Longitude = local.getLongitude();
 
     }
 

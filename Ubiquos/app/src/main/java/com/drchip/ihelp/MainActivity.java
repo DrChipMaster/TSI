@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements PostAdapter.ItemC
 
         requestPermission();
         clientLoc = LocationServices.getFusedLocationProviderClient(this);
-        getLocation(clientLoc);
+        //  getLocation(clientLoc);
 
     }
     private void permissions() {
@@ -238,6 +238,8 @@ public class MainActivity extends AppCompatActivity implements PostAdapter.ItemC
     private void requestPermission(){
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
     }
+
+
     private void getLocation(FusedLocationProviderClient client) {
         if (ActivityCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;

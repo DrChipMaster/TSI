@@ -2,10 +2,13 @@ package com.drchip.ihelp;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,7 +19,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +40,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class CreatePost extends AppCompatActivity {
 
@@ -53,6 +61,8 @@ public class CreatePost extends AppCompatActivity {
     private StorageReference mStorageRef;
     boolean finished;
     ProgressDialog progressDialog;
+    Location loc;
+    private FusedLocationProviderClient clientLoc;
 
 
     @Override
@@ -70,7 +80,9 @@ public class CreatePost extends AppCompatActivity {
         ivQRcode = findViewById(R.id.ivQRcode);
         ivImage = findViewById(R.id.ivImage);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        clientLoc = LocationServices.getFusedLocationProviderClient(this);
 
+        getLocation(clientLoc);
         imagePath = "null";
         contact = "null";
         adress = "null";
@@ -129,7 +141,7 @@ public class CreatePost extends AppCompatActivity {
 
                             String id = postid + "";
                             if (image) imagePath = id;
-                    Post newPost = new Post(postid, ApplicationClass.currentUser.getUid(), etDescription.getText().toString(), etTitle.getText().toString(), imagePath, contact, adress, formattedDate, 0);
+                    Post newPost = new Post(postid, ApplicationClass.currentUser.getUid(), etDescription.getText().toString(), etTitle.getText().toString(), imagePath, contact, adress, formattedDate, 0, loc);
                             DatabaseReference trans = mDatabase.child("Posts").child(id);
                             DatabaseReference ref = mDatabase.child("LastPost");
                             ref.setValue(postid);
@@ -180,6 +192,14 @@ public class CreatePost extends AppCompatActivity {
                         });
 
                     }
+
+                    String PathGPS = (int) (loc.getLatitude() * 10000) + " " + (int) (loc.getLongitude() * 10000);
+
+                    PathGPS = PathGPS.replace('-', 'A').replace('.', '_');
+                    DatabaseReference local = mDatabase.child("GPS").child(PathGPS).push();
+                    local.setValue(postid);
+
+
 
 
 
@@ -297,4 +317,25 @@ public class CreatePost extends AppCompatActivity {
             //TODO: action
         }
     }
+
+    private void getLocation(FusedLocationProviderClient client) {
+        if (ActivityCompat.checkSelfPermission(CreatePost.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        client.getLastLocation().addOnSuccessListener(CreatePost.this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Latitude: " + location.getLatitude() + "\nLongitude: " + location.getLongitude();
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                    loc = location;
+
+                }
+            }
+        });
+    }
+
 }

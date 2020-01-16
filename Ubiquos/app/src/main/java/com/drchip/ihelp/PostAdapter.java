@@ -168,6 +168,7 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 
         likedPostsID = new ArrayList<>();
+        likedPostsID.clear();
         holder.ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,7 +183,26 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshots) {
                         for (DataSnapshot dataSnap : dataSnapshots.getChildren()) {
                             likedPostsID.add(dataSnap.getValue(long.class));
+
+
                         }
+                        boolean exists = false;
+                        for (Post post : posts) {
+
+                            if (likedPostsID.contains(post.PostId)) {
+                                exists = true;
+                            }
+                        }
+                        if (!exists) {
+                            DatabaseReference trans = mDatabase1.child("Posts").child(posts.get(position).PostId + "");
+                            /* if post not liked yet then like and store value */
+                            DatabaseReference likes = mDatabase1.child("Users_likes").child(ApplicationClass.currentUser.getUid());
+                            posts.get(position).Likes++;
+                            trans.setValue(posts.get(position));
+                            likes.push().setValue(posts.get(position).PostId);
+                        }
+
+
                     }
 
                     @Override
@@ -192,15 +212,6 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 });
 
 
-                DatabaseReference trans = mDatabase1.child("Posts").child(posts.get(position).PostId + "");
-                /* if post not liked yet then like and store value */
-                DatabaseReference likes = mDatabase1.child("Users_likes").child(ApplicationClass.currentUser.getUid());
-                if(!likedPostsID.contains(likes))
-                {
-                    posts.get(position).Likes++;
-                    trans.setValue(posts.get(position));
-                    likes.push().setValue(posts.get(position).PostId);
-                }
             }
         });
         holder.tvTitle.setText(posts.get(position).Title);

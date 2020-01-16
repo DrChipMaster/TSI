@@ -12,9 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -52,6 +55,9 @@ public class WatchPost extends AppCompatActivity implements OnMapReadyCallback {
         ivQRcode = findViewById(R.id.ivQRcode);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        new ImageDownloaderTask(ivQRcode).execute("https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + ApplicationClass.PostClicked.PostId);
+
         if (ApplicationClass.PostClicked.Phone.equals("null")) {
             linContact.setVisibility(View.GONE);
         } else tvContact.setText(ApplicationClass.PostClicked.Phone);
@@ -68,7 +74,7 @@ public class WatchPost extends AppCompatActivity implements OnMapReadyCallback {
 
 
         //
-        new ImageDownloaderTask(ivQRcode).execute("https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + ApplicationClass.PostClicked.PostId);
+
         tvTitle.setText(ApplicationClass.PostClicked.Title);
         tvContent.setText(ApplicationClass.PostClicked.Description);
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -147,7 +153,9 @@ public class WatchPost extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap map) {
-        //map.addMarker(new MarkerOptions().position(new LatLng(41.452532, -8.289260)).title("Marker"));
+        map.addMarker(new MarkerOptions().position(new LatLng(ApplicationClass.PostClicked.Latitude, ApplicationClass.PostClicked.Longitude)).title("Marker"));
+        float zoomlever = 16.0f;
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ApplicationClass.PostClicked.Latitude, ApplicationClass.PostClicked.Longitude), zoomlever));
         // map.addMarker(new MarkerOptions().position(new LatLng()));
     }
 
