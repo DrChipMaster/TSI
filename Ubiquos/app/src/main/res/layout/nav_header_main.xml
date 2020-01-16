@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:text="JoseBertinoNabiço@gaymail.com"
+        android:text="Defaultemail@gmail.com"
         android:textColor="@color/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -45,13 +45,12 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
-        android:contentDescription="@string/nav_header_desc"
         app:layout_constraintBottom_toTopOf="@+id/tvName"
         app:layout_constraintEnd_toStartOf="@+id/ivMenuLogo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.82"
-        app:srcCompat="@drawable/samuel" />
+        app:srcCompat="@drawable/picdefault" />
 
     <TextView
         android:id="@+id/tvName"
@@ -59,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Samuel Pereira"
+        android:text="Default Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/primaryTextColor"
         android:textStyle="bold"
