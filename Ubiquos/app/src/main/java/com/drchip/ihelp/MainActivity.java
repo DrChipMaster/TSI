@@ -334,8 +334,10 @@ public class MainActivity extends AppCompatActivity implements PostAdapter.ItemC
 
     @Override
     public void onItemClicked(Post postClicked) {
+        ApplicationClass.PostClicked = postClicked;
         Intent intent = new Intent(MainActivity.this, WatchPost.class);
 
+        startActivity(intent);
         //Toast.makeText(this, "Post clicked"+postClicked.PostId, Toast.LENGTH_SHORT).show();
         // Toast.makeText(this, "Surname"+people.get(index).getSurname(), Toast.LENGTH_SHORT).show();
 
