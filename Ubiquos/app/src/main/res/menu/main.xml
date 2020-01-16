@@ -6,4 +6,10 @@
         android:orderInCategory="100"
         android:title="Log Out"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/scanQR"
+        android:icon="@drawable/ic_qrscan"
+        android:orderInCategory="101"
+        android:title="Scan QR code"
+        app:showAsAction="ifRoom" />
 </menu>
