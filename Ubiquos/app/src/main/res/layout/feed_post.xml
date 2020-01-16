@@ -61,7 +61,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:text="Rita Rodrigues"
+                        android:text="Default Name"
                         android:textColor="@color/secondaryTextColor"
                         android:textSize="20sp" />
 
