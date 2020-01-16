@@ -40,8 +40,6 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         void onItemClicked(int index);
     }
 
-    File localFile = null;
-    File fileImage = null;
 
     @NonNull
     @Override
@@ -54,7 +52,10 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     DatabaseReference mDatabase1;
     private StorageReference mStorageRef;
 
+    ArrayList<File> files;
+
     public PostAdapter(Context context, ArrayList<Post> list) {
+        files = new ArrayList<>();
         posts = list;
         //activity=(ItemClicked)context;
     }
@@ -62,6 +63,7 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final PostAdapter.ViewHolder holder, final int position) {
         holder.itemView.setTag(posts.get(position));   // quando algem segura o cenas guarda o index!!!!
+
 
 
         mDatabase1 = FirebaseDatabase.getInstance().getReference();
@@ -78,15 +80,24 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 StorageReference profile = mStorageRef.child("images/" + posts.get(position).Author + "/profile.jpg");
 
                 try {
-                    localFile = File.createTempFile("profile", "jpg");
-                    profile.getFile(localFile)
+                    final File finalLocalFile = File.createTempFile(posts.get(position).Author, ".jpg");
+                    boolean exists = false;
+                    for (File file : files) {
+                        if (file.equals(finalLocalFile)) {
+                            exists = true;
+                        }
+
+                    }
+                    if (!exists)
+
+                        profile.getFile(finalLocalFile)
                             .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                    final Uri imageUri = Uri.parse(localFile.toString());
+                                    final Uri imageUri = Uri.parse(finalLocalFile.toString());
 
                                     try {
-                                        Picasso.get().load(String.valueOf(localFile.toURL())).into(holder.ivProfilePicture);
+                                        Picasso.get().load(String.valueOf(finalLocalFile.toURL())).into(holder.ivProfilePicture);
 
                                     } catch (MalformedURLException e) {
                                         e.printStackTrace();
@@ -120,15 +131,15 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             StorageReference profile = mStorageRef.child("post/" + posts.get(position).ImagePath + "" + "/image.jpg");
 
             try {
-                fileImage = File.createTempFile("image", "jpg");
-                profile.getFile(fileImage)
+                final File finalFileImage = File.createTempFile("image", ".jpg");
+                profile.getFile(finalFileImage)
                         .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                final Uri imageUri = Uri.parse(fileImage.toString());
+                                final Uri imageUri = Uri.parse(finalFileImage.toString());
 
                                 try {
-                                    Picasso.get().load(String.valueOf(fileImage.toURL())).into(holder.ivPostImage);
+                                    Picasso.get().load(String.valueOf(finalFileImage.toURL())).into(holder.ivPostImage);
 
                                 } catch (MalformedURLException e) {
                                     e.printStackTrace();
@@ -146,6 +157,9 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            holder.ivUpperLine.setVisibility(View.GONE);
+            holder.ivProfilePicture.setVisibility(View.VISIBLE);
         }
         holder.ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +198,7 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivProfilePicture, ivPostImage, ivShare, ivLike, ivComment;
+        ImageView ivProfilePicture, ivPostImage, ivShare, ivLike, ivComment, ivUpperLine;
         TextView tvTitle, tvName, tvDate, tvDescription, tvLikes, tvComments;
 
         public ViewHolder(@NonNull View itemView) {
@@ -200,6 +214,7 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             ivShare = itemView.findViewById(R.id.ivShare);
             ivLike = itemView.findViewById(R.id.ivLike);
             ivComment = itemView.findViewById(R.id.ivComment);
+            ivUpperLine = itemView.findViewById(R.id.ivUpperLine);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

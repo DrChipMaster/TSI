@@ -88,11 +88,14 @@ public class HomeFragment extends Fragment {
                                 Post aux = dataSnapshot.getValue(Post.class);
                                 for (int i = 0; i < Feed.size(); i++) {
 
-                                    if (Feed.get(i).PostId == aux.PostId)
-                                        Feed.remove(i);
+                                    if (Feed.get(i).PostId == aux.PostId) {
+                                        Feed.set(i, aux);
+                                        exits = true;
+                                    }
 
                                 }
-                                Feed.add(aux);
+                                if (!exits)
+                                    Feed.add(aux);
                                 myAdapter.notifyDataSetChanged();
 
 
