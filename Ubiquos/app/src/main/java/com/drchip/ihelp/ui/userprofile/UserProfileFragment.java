@@ -72,9 +72,9 @@ public class UserProfileFragment extends Fragment {
         rvUserPublications.setLayoutManager(layoutManager);
 
         rvLikedPublications = root.findViewById(R.id.rvLikedPublications);
-        rvUserPublications.setHasFixedSize(false);
+        rvLikedPublications.setHasFixedSize(false);
         likedPostslayoutManager = new LinearLayoutManager(getContext());
-        rvUserPublications.setLayoutManager(likedPostslayoutManager);
+        rvLikedPublications.setLayoutManager(likedPostslayoutManager);
 
         btnUserPublications = root.findViewById(R.id.btnPosts);
         btnLikedPublications = root.findViewById(R.id.btnLiked);
