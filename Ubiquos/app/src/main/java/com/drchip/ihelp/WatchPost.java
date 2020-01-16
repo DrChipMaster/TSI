@@ -118,6 +118,8 @@ public class WatchPost extends AppCompatActivity implements OnMapReadyCallback {
 
 
         mMapView.getMapAsync(this);
+        new ImageDownloaderTask(ivQRcode).execute("https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + ApplicationClass.PostClicked.PostId);
+
     }
 
     @Override
