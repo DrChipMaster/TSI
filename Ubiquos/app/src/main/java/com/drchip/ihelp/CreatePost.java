@@ -164,7 +164,7 @@ public class CreatePost extends AppCompatActivity {
                     String[] macs = info.getBssidList_toString();
 
                     DatabaseReference user = mDatabase.child("UserPosts").child(ApplicationClass.currentUser.getUid()).push();
-                    user.setValue(id);
+                    user.setValue(postid);
 
                     for (String mac : macs) {
                         DatabaseReference aux = mDatabase.child("Mac").child(mac).push();
