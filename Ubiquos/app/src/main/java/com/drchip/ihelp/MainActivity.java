@@ -36,6 +36,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.karan.churi.PermissionManager.PermissionManager;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -43,8 +44,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.security.Permission;
 
 public class MainActivity extends AppCompatActivity {
+
+    PermissionManager permissionManager;
 
     private AppBarConfiguration mAppBarConfiguration;
     public static final int PICK_IMAGE = 1;
