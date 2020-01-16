@@ -167,8 +167,8 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 posts.get(position).Likes++;
                 DatabaseReference trans = mDatabase1.child("Posts").child(posts.get(position).PostId + "");
                 trans.setValue(posts.get(position));
-                DatabaseReference likes = mDatabase1.child("Users_likes").child(ApplicationClass.currentUser.getUid()).child(posts.get(position).PostId + "").push();
-                likes.setValue(posts.get(position));
+                DatabaseReference likes = mDatabase1.child("Users_likes").child(ApplicationClass.currentUser.getUid()).push();
+                likes.setValue(posts.get(position).PostId);
 
 
             }
