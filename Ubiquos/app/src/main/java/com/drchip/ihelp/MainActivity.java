@@ -1,9 +1,12 @@
 package com.drchip.ihelp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,6 +28,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -53,9 +58,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
+
+
+
 public class MainActivity extends AppCompatActivity implements PostAdapter.ItemClicked {
 
     PermissionManager permissionManager;
+    private FusedLocationProviderClient clientLoc;
 
     private AppBarConfiguration mAppBarConfiguration;
     public static final int PICK_IMAGE = 1;
@@ -113,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements PostAdapter.ItemC
                 }
             }
         });
+
+        requestPermission();
+        clientLoc = LocationServices.getFusedLocationProviderClient(this);
+        getLocation(clientLoc);
 
 
         fabCreatePost.setOnClickListener(new View.OnClickListener() {
@@ -215,6 +230,27 @@ public class MainActivity extends AppCompatActivity implements PostAdapter.ItemC
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void requestPermission(){
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
+    }
+    private void getLocation(FusedLocationProviderClient client) {
+        if (ActivityCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        client.getLastLocation().addOnSuccessListener(MainActivity.this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Latitude: " + location.getLatitude() + "\nLongitude: " + location.getLongitude();
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+            }
+        });
     }
 
     @Override
