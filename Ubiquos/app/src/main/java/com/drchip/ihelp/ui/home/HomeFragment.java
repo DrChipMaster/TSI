@@ -232,6 +232,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
+                    postsID = new ArrayList<>();
+
                     CharSequence text = "Latitude: " + location.getLatitude() + "\nLongitude: " + location.getLongitude();
                     int duration = Toast.LENGTH_SHORT;
                     loc = location;
@@ -246,6 +248,7 @@ public class HomeFragment extends Fragment {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
                                         boolean exits = false;
+
 
                                         for (int i = 0; i < postsID.size(); i++) {
                                             long aux = dataSnap.getValue(long.class);
